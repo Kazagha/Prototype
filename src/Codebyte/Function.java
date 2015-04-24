@@ -48,11 +48,27 @@ class Function {
 	  return String.valueOf(temp);
   }
   
+  String LongestWord(String sen) {
+	  // Leave only alpha
+	  sen = sen.replaceAll("[^A-Za-z0-9 ]", "");
+	  
+	  String[] parts = sen.split(" ");
+	  String temp = new String("");
+	  
+	  for(String s : parts){
+		  if(s.length() > temp.length()){
+			  temp = s;
+		  }
+	  }
+	  
+	  return temp;
+  }
+  
   public static void main (String[] args) {  
 	    // keep this function call here     
 	  Scanner  s = new Scanner(System.in);
 	    Function c = new Function();
-	    System.out.print(c.FirstFactorial(s.nextLine())); 
+	    System.out.print(c.LongestWord(s.nextLine())); 
   }   
   
 }    
