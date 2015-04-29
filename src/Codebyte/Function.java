@@ -38,11 +38,24 @@ class Function {
 	 * @param c
 	 * @return
 	 */
-	char nextLetter(char c){	  
-		int temp = Character.getNumericValue(c) + 1;
-		return Character.forDigit(temp, 36);
+	char nextLetter(char c){
+		if(Character.isLetter(c)) {				
+			int temp = Character.getNumericValue(c) + 1;			
+			c = Character.forDigit(temp, 36);
+			
+			switch(c){			
+			case 'a': return 'A';
+			case 'e': return 'E';
+			case 'i': return 'I';
+			case 'o': return 'O';
+			case 'u': return 'U';
+			default: return c;
+			}
+		} else {
+			return c;
+		}
 	}
-  
+	
 	/**
 	 * Find the factorial of the numbers in the input string. 
 	 * @param s
