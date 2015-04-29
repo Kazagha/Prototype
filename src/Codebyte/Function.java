@@ -56,6 +56,35 @@ class Function {
 		}
 	}
 	
+	private static final List<Character> VOWEL = Arrays.asList('a', 'e', 'i', 'o', 'u');
+	
+	/**
+	 * Using the input char, return the next letter in the array
+	 * 
+	 * Updated to check against an array rather than using a switch
+	 * As suggested by user zawiczek
+	 * @param c
+	 * @return
+	 */
+	char nextLetterArray(char c) {
+		// Check if the character is a letter		
+		if(Character.isLetter(c)) {	
+			// Convert to the next letter
+			int temp = Character.getNumericValue(c) + 1;			
+			c = Character.forDigit(temp, 36);
+			
+			// Make vowles uppercase
+			if(VOWEL.contains(c)) {
+				c = Character.toUpperCase(c);
+			}
+			
+			return c;
+			
+		} else {
+			return c;
+		}
+	}
+	
 	/**
 	 * Find the factorial of the numbers in the input string. 
 	 * @param s
