@@ -121,11 +121,68 @@ class Function {
 		
 		return temp;
 	}
+	
+	/**
+	 * Add all numbers from 1 to num.
+	 * This confuses the situation by mixing String and Int without conversion.
+	 * @param num
+	 * @return
+	 */
+	int SimpleAdding(int num) {
+		int counter = 0;
+		
+		for(int i = 1; i < num; i++) {
+			counter += i;
+		}		
+		
+		return counter;		
+	}
+	
+	/**
+	 * Capitalize the first character in the string
+	 * @param str
+	 * @return
+	 */
+	String LetterCapitalize(String str){
+		char[] charArray = str.toCharArray();
+		
+		for(int i = 0; i < charArray.length; i++) {
+			if(Character.isWhitespace(charArray[i])) {
+				charArray[i + 1] = Character.toUpperCase(charArray[i + 1]);
+			} else if (i == 0) {
+				charArray[i] = Character.toUpperCase(charArray[i]);
+			}
+		}
+		
+		return String.valueOf(charArray);
+	}
+	
+	/**
+	 * Capitalize the first character in the string
+	 * Written again using a placeholder for the previous character. 
+	 * @param str
+	 * @return
+	 */
+	String LetterCapitalizePrev(String str) {
+		String temp = "";		
+		char prev = 0;
+		
+		for(char c : str.toCharArray()) {
+			if(Character.isWhitespace(prev) || prev == 0) {
+				c = Character.toUpperCase(c);
+			}			
+			
+			prev = c;
+			temp += c;
+		}
+		
+		return String.valueOf(temp);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.LetterChanges(s.nextLine())); 
+		System.out.print(c.LetterCapitalizePrev(s.nextLine())); 
 	}  
 }    
