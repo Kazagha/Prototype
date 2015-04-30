@@ -179,6 +179,13 @@ class Function {
 		return String.valueOf(temp);
 	}
 	
+	/**
+	 * Return true when the input String has '+' both before and after any alpha characters
+	 * ===+u+=== is True
+	 * ===+u==== is False
+	 * @param str
+	 * @return
+	 */
 	String SimpleSymbols(String str) {
 		char[] charArray = str.toCharArray();
 		boolean valid = true;		
@@ -194,10 +201,11 @@ class Function {
 					return String.valueOf(false);
 				}				
 			}				
-		}
-		
+		}		
 		return String.valueOf(true);
 	}
+	
+	
   
 	public static void main (String[] args) {  
 		// keep this function call here     
