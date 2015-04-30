@@ -205,12 +205,29 @@ class Function {
 		return String.valueOf(true);
 	}
 	
+	/**
+	 * Return true if num2 is greater than num 1 otherwise return false
+	 * Return "-1" if they are equal
+	 * @param num1
+	 * @param num2
+	 * @return
+	 */
+	String CheckNums(int num1, int num2) {		
+		if(num2 > num1) {
+			return "true"; 
+		} else if (num2 < num1) {
+			return "false";
+		}
+		
+		return "-1";
+	}
 	
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.SimpleSymbols(s.nextLine())); 
+		//System.out.print(c.CheckNums(s.nextLine()));
+		System.out.print(c.CheckNums(82, 182));
 	}  
 }    
