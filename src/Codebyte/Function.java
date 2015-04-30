@@ -178,11 +178,31 @@ class Function {
 		
 		return String.valueOf(temp);
 	}
+	
+	String SimpleSymbols(String str) {
+		char[] charArray = str.toCharArray();
+		boolean valid = true;		
+
+		for(int i = 0; i < charArray.length; i++) {
+			if(Character.isAlphabetic(charArray[i])) {
+				
+				if(i == 0 || i == charArray.length - 1) {
+					return String.valueOf(false);
+				}				
+				
+				if(charArray[i + 1] != '+' || charArray[i - 1] != '+') {
+					return String.valueOf(false);
+				}				
+			}				
+		}
+		
+		return String.valueOf(true);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.LetterCapitalizePrev(s.nextLine())); 
+		System.out.print(c.SimpleSymbols(s.nextLine())); 
 	}  
 }    
