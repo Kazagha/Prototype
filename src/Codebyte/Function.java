@@ -222,12 +222,21 @@ class Function {
 		return "-1";
 	}
 	
+	String TimeConvert(String str) {
+		int num = Integer.valueOf(str);
+		
+		int hours = (int) Math.floor(num / 60);
+		int minutes = (int) (num % 60);
+		
+		String time = hours + ":" + minutes;
+						
+		return time;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		//System.out.print(c.CheckNums(s.nextLine()));
-		System.out.print(c.CheckNums(82, 182));
+		System.out.print(c.TimeConvert(s.nextLine()));
 	}  
 }    
