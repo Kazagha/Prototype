@@ -232,11 +232,29 @@ class Function {
 						
 		return time;
 	}
+	
+	String  AlphabetSoup(String str){
+		ArrayList<Character> stringArray = new ArrayList<Character>();
+		
+		for(char c : str.toCharArray()){
+			stringArray.add(c);
+		}
+		
+		Collections.sort(stringArray);
+		
+		str = "";
+		
+		for(char c : stringArray) {
+			str += c;
+		}
+		
+		return str;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.TimeConvert(s.nextLine()));
+		System.out.print(c.AlphabetSoup(s.nextLine()));
 	}  
 }    
