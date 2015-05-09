@@ -222,6 +222,11 @@ class Function {
 		return "-1";
 	}
 	
+	/**
+	 * Convert the specified number of minutes into hours:minutes.
+	 * @param str The specified String
+	 * @return
+	 */
 	String TimeConvert(String str) {
 		int num = Integer.valueOf(str);
 		
@@ -233,6 +238,11 @@ class Function {
 		return time;
 	}
 	
+	/**
+	 * Sort the specified String into alphabetical order
+	 * @param str The specified String
+	 * @return
+	 */
 	String  AlphabetSoup(String str){
 		ArrayList<Character> stringArray = new ArrayList<Character>();
 		
