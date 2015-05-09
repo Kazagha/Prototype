@@ -260,6 +260,19 @@ class Function {
 		
 		return str;
 	}
+	
+	/**
+	 * Alternative implementation of AlphabetSoup by user jakmaj
+	 * @param input The specified String
+	 * @return
+	 */
+	String AlphabetSoupConcise(String input) { 
+		  char[] tmp = input.toCharArray();
+			Arrays.sort(tmp);
+			input = new String(tmp);
+			
+			return input;
+	} 
   
 	public static void main (String[] args) {  
 		// keep this function call here     
