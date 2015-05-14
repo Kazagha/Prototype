@@ -329,11 +329,22 @@ class Function {
 		}		
 		return String.valueOf(count);
 	}
+	
+	/**
+	 * Count the number of words in the specified String
+	 * @param str
+	 * @return
+	 */
+	String WordCount(String str) {
+		String[] array = str.split(" ");
+		
+		return String.valueOf(array.length);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.VowelCount(s.nextLine()));
+		System.out.print(c.WordCount(s.nextLine()));
 	}  
 }    
