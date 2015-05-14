@@ -309,11 +309,31 @@ class Function {
 		}					
 		return "false";
 	}
+	
+	/**
+	 * Count the number of Vowels in the specified String
+	 * @param str
+	 * @return
+	 */
+	String VowelCount(String str) {
+		int count = 0;
+		char[] vowel = {'a', 'e', 'i', 'o', 'u'};
+		
+		for(char c : str.toLowerCase().toCharArray()) {
+			for(char v : vowel) {
+				if(c == v) {
+					count++;
+					break;
+				}
+			}
+		}		
+		return String.valueOf(count);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.ABCheck(s.nextLine()));
+		System.out.print(c.VowelCount(s.nextLine()));
 	}  
 }    
