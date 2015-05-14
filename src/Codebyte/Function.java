@@ -2,6 +2,8 @@ package Codebyte;
 
 import java.util.*; 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Function {  
 	
@@ -273,11 +275,45 @@ class Function {
 			
 			return input;
 	} 
+	
+	/**
+	 * Check if the specified string contains 'a???b' anywhere in the String
+	 * Apparently the 'Pattern' class is not supported.
+	 * @param str
+	 * @return
+	 */
+	String ABCheckPattern(String str) {
+		str = str.replaceAll("[^A-Za-z0-9 ]", "");		
+		
+		System.out.println(str);
+		
+		Pattern p = Pattern.compile(".*a...b.*");
+		Matcher m = p.matcher(str);		
+		boolean b = m.matches();
+		return String.valueOf(b);
+	}
+	
+	/**
+	 * Check if the specified string contains 'a???b' anywhere in the String
+	 * @param str
+	 * @return
+	 */
+	String ABCheck(String str) {
+		char[] array = str.toCharArray();
+		
+		for(int i = 0; i < str.length() - 4; i++)
+		{			
+			if(array[i] == 'a' && array[i + 4] == 'b') {
+				return "true";
+			}
+		}					
+		return "false";
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.AlphabetSoup(s.nextLine()));
+		System.out.print(c.ABCheck(s.nextLine()));
 	}  
 }    
