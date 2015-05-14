@@ -340,11 +340,25 @@ class Function {
 		
 		return String.valueOf(array.length);
 	}
+	
+	/**
+	 * Check if the specified integer is a prime number
+	 * @param num
+	 * @return
+	 */
+	String PrimeTime(int num) {
+		for(int i = 2; i < num; i++) {
+			if((num % i) == 0) {
+				return "false";
+			}
+		}		
+		return "true";
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.WordCount(s.nextLine()));
+		System.out.print(c.PrimeTime(s.nextInt()));
 	}  
 }    
