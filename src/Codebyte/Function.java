@@ -406,11 +406,51 @@ class Function {
 		
 		return reverseString;
 	}
+	
+	String ArithGeo(int[] arr) {
+		
+		if(Geometric(arr)) {
+			return "Geometric";
+		}	
+		
+		if(Arithmetic(arr)) {
+			return "Arithmetic";
+		}
+			
+		return "-1";
+	}
+	
+	boolean Arithmetic(int[] arr) {
+		for(int i : arr) {
+			if(i % arr[0] != 0) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	boolean Geometric(int[] arr) {
+		double basePlus = arr[0];
+		double baseMult = arr[1] / basePlus;
+		
+		for(int i = 2; i < arr.length; i++) {
+			
+			double temp = arr[i] / basePlus;		
+			
+			if((temp % baseMult) != 0) {
+				return false;
+			} 
+		}
+		
+		return true;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.Palindrome(s.nextLine()));
+		//System.out.print(c.ArithGeo(s.nextLine()));
+		System.out.println(c.ArithGeo(new int[] {2, 6, 18, 54}));
 	}  
 }    
