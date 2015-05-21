@@ -376,11 +376,41 @@ class Function {
 		
 		return String.valueOf(xCount == yCount);
 	}
+	
+	/**
+	 * Return <code>true</code> in the specified input String is same forward as it is backwards
+	 * @param str
+	 * @return
+	 */
+	String Palindrome(String str) {
+		// Replace invalid characters, including spaces
+		str = str.replaceAll("[^A-Za-z0-9]", "");
+		str.toLowerCase();
+		
+		String reverseString = reverseStr(str);
+		
+		return String.valueOf(str.equals(reverseString));
+	}
+	
+	/**
+	 * Reverse the specified String
+	 * @param str
+	 * @return
+	 */
+	String reverseStr(String str) {
+		String reverseString = "";
+		
+		for(int i = str.length() - 1; i >= 0; i--) {
+			reverseString += str.charAt(i);
+		}	
+		
+		return reverseString;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.ExOh(s.nextLine()));
+		System.out.print(c.Palindrome(s.nextLine()));
 	}  
 }    
