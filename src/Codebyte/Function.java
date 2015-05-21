@@ -347,6 +347,8 @@ class Function {
 	 * @return
 	 */
 	String PrimeTime(int num) {
+		if (num %2 == 0) return "false";
+		
 		for(int i = 2; i < num; i++) {
 			if((num % i) == 0) {
 				return "false";
@@ -354,11 +356,31 @@ class Function {
 		}		
 		return "true";
 	}
+	
+	/**
+	 * Check if there are an equal number of 'o' and 'x' characters
+	 * @param str
+	 * @return
+	 */
+	String ExOh(String str) {
+		int xCount = 0;
+		int yCount = 0;
+		
+		for(char c : str.toLowerCase().toCharArray()) {
+			if(c == 'x') {
+				xCount++;
+			} else {
+				yCount++;
+			}
+		}
+		
+		return String.valueOf(xCount == yCount);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		System.out.print(c.PrimeTime(s.nextInt()));
+		System.out.print(c.ExOh(s.nextLine()));
 	}  
 }    
