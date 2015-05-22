@@ -505,12 +505,25 @@ class Function {
 		
 		return false; 
 	}
+	
+	String BinaryConverter(String str) {
+		int count = 0;
+		
+		for(double i = 0; i < str.length(); i++) {		
+			double temp = Character.digit(str.charAt((int) i), 10);
+			temp = temp * (Math.pow(2, (str.length() - i - 1)));
+			
+			count += temp;
+		}
+		
+		return String.valueOf(count);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.ArrayAdditionI(new int[] {1, 1, 1, 1, 6}));
+		System.out.println(c.BinaryConverter(s.nextLine()));
 	}  
 }    
