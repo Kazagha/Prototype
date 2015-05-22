@@ -446,8 +446,15 @@ class Function {
 		return true;
 	}
 	
-	int targetInt;
 	
+	
+	
+	int targetInt;
+	/**
+	 * Check if *any* combination of numbers in the specified array add up to the largest number in the array.
+	 * @param arr - Specified array
+	 * @return
+	 */
 	String ArrayAdditionI(int[] arr) {
 
 		ArrayList<Integer> intArray = new ArrayList<Integer>();
@@ -471,16 +478,26 @@ class Function {
 		return "false";
 	}
 	
+	/**
+	 * Check if the counter equals the target
+	 * Then begin testing each number in the array
+	 * @param arr
+	 * @param counter
+	 * @return
+	 */
 	boolean AddCalc(ArrayList<Integer> arr, int counter) {
 		
+		// Check if the current counter equals the target
 		if(counter == targetInt) {
 			return true;
 		}
 		
+		// Iterate through the numbers in the array
 		for(int i : arr) {
+			// Create a temporary array and remove the current number
 			ArrayList<Integer> temp = new ArrayList<Integer>(arr);
 			temp.remove((Integer) i);
-			
+			// Check if the temporary array matches the target 
 			if(AddCalc(temp, (counter + i))) {
 				return true;
 			}
