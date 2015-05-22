@@ -445,12 +445,55 @@ class Function {
 		
 		return true;
 	}
+	
+	int targetInt;
+	
+	String ArrayAdditionI(int[] arr) {
+
+		ArrayList<Integer> intArray = new ArrayList<Integer>();
+		Arrays.sort(arr);
+				
+		for(int i : arr) {
+			intArray.add(i);
+		}
+		
+		targetInt = intArray.get(intArray.size() - 1);
+		intArray.remove((Integer)targetInt);
+		
+		//System.out.println(intArray.toString() + " Target: " + targetInt);
+		
+		//System.out.println(AddCalc(intArray, 0));
+		
+		if(AddCalc(intArray, 0)) {
+			return "true";
+		}
+		
+		return "false";
+	}
+	
+	boolean AddCalc(ArrayList<Integer> arr, int counter) {
+		
+		if(counter == targetInt) {
+			return true;
+		}
+		
+		for(int i : arr) {
+			ArrayList<Integer> temp = new ArrayList<Integer>(arr);
+			temp.remove((Integer) i);
+			
+			if(AddCalc(temp, (counter + i))) {
+				return true;
+			}
+		}
+		
+		return false; 
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.ArithGeo(new int[] {2, 6, 18, 54}));
+		System.out.println(c.ArrayAdditionI(new int[] {1, 1, 1, 1, 6}));
 	}  
 }    
