@@ -518,12 +518,42 @@ class Function {
 		
 		return String.valueOf(count);
 	}
+	
+	/**
+	 * Return the work with the largest number of repeated letters
+	 * @param str
+	 * @return
+	 */
+	String LetterCountI(String str) {		
+		String[] strArray = str.split(" ");
+		String longestStr = "-1";
+		int maxCount = 1;
+		
+		for(String s : strArray) {			
+			for(int i = 0; i < s.length(); i++) {
+				int count = 1;				
+				
+				for(int j = i + 1; j < s.length(); j++) {					
+					if(s.charAt(i) == s.charAt(j)) {
+						count++;						
+					}
+					
+					if(count > maxCount) {
+						longestStr = s;
+						maxCount = count;
+					}
+				}
+			}
+		}	
+		
+		return longestStr;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.BinaryConverter(s.nextLine()));
+		System.out.println(c.LetterCountI(s.nextLine()));
 	}  
 }    
