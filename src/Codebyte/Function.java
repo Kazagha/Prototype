@@ -548,12 +548,54 @@ class Function {
 		
 		return longestStr;
 	}
+	
+	/**
+	 * Return the second lowest and second largest numbers from the input array
+	 * This doesn't take into account numbers that are the same
+	 * @param array
+	 * @return
+	 */
+	String SecondGreatLowNonSame(int[] arr) {
+		Arrays.sort(arr);		
+		String str = (arr[1] + " " + arr[arr.length - 2]);		
+		
+		return str;
+	}
+	
+	/**
+	 * Return the second lowest and second largest numbers from the input array
+	 * @param arr
+	 * @return
+	 */
+	String SecondGreatLow(int[] arr) {
+		Arrays.sort(arr);
+		int numHigh = 0;
+		int numLow = 0;
+				
+		for(int i = 0; i < arr.length - 1; i++) {
+			if(arr[i] != arr[i + 1]) {
+				numLow = arr[i + 1];
+				break;
+			}
+		}
+		
+		for(int i = arr.length - 1; i > 0; i--) {
+			if(arr[i] != arr[i - 1]) {
+				numHigh = arr[i - 1];
+				break;
+			}
+		}
+		
+		String str = (numLow + " " + numHigh);		
+		
+		return str;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.LetterCountI(s.nextLine()));
+		System.out.println(c.SecondGreatLow(new int[]{1, 1, 1, 7, 8, 8, 9, 9}));
 	}  
 }    
