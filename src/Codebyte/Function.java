@@ -612,12 +612,53 @@ class Function {
 		}		
 		return str;
 	}
+	
+	/**
+	 * Determine the difference between two times
+	 * @param str
+	 * @return
+	 */
+	String CountingMinutesI(String str) {
+		String[] temp = str.split("-");
+		
+		int start = timeToMin(temp[0]);
+		int end   = timeToMin(temp[1]);
+		
+		if(end > start) {
+			return String.valueOf(end - start);
+		}
+		
+		return String.valueOf((24 * 60) - (start - end));
+	}
+	
+	/**
+	 * Convert the specified '12 hour clock' format time to a number of minutes 
+	 * @param str
+	 * @return
+	 */
+	int timeToMin(String str) {
+		int time = 0;
+		String[] temp = str.split(":");
+		
+		// Set Hours
+		time += (Integer.valueOf(temp[0])) * 60;
+		
+		// Add 12 hours for PM
+		if(temp[1].substring(2, 4).equals("pm")) {
+			time += (12 * 60);
+		}
+		
+		// Set Minutes
+		time += Integer.valueOf(temp[1].substring(0, 2));		
+		
+		return time;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.DivisionStringified(76543211, 10));
+		System.out.println(c.CountingMinutesI(s.nextLine()));
 	}  
 }    
