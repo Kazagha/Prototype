@@ -590,12 +590,34 @@ class Function {
 		
 		return str;
 	}
+	
+	/**
+	 * Work in progress
+	 * @param num1
+	 * @param num2
+	 * @return
+	 */
+	String DivisionStringified(int num1, int num2) {
+		int total = num1 / num2;
+		
+		String str = String.valueOf(total);
+		int commaNum = (int) Math.floor((str.length() - 1) / 3);
+		int rem = str.length() % 3;
+		
+		System.out.println(rem);
+		String temp = "";
+		
+		for(int i = rem; i < str.length(); i++) {
+			
+		}		
+		return str;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.SecondGreatLow(new int[]{1, 1, 1, 7, 8, 8, 9, 9}));
+		System.out.println(c.DivisionStringified(76543211, 10));
 	}  
 }    
