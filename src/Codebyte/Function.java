@@ -653,12 +653,52 @@ class Function {
 		
 		return time;
 	}
+	
+	/**
+	 * Determine if the mean and mode are of the input array are equal
+	 * Return 1 if they are equal, return 0 if they are not
+	 * @param arr
+	 * @return
+	 */
+	public int MeanMode(int[] arr) {
+		int mode = 0;
+		Arrays.sort(arr);
+		
+		for(int i : arr) {
+			mode += i;
+		}		
+		mode = mode / arr.length;
+
+		int mean = 0;
+		int temp = 0;
+		int maxCount = 0;
+		int count = 0;
+		for(int i : arr) {
+			if(temp == i) {
+				count++;
+				if(count > maxCount) {
+					mean = i;
+					maxCount = count;
+				}
+			} else {
+				count = 0;
+			}
+				
+			temp = i;
+		}
+						
+		if(mean == mode) {
+			return 1;
+		} 
+		
+		return 0;
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.CountingMinutesI(s.nextLine()));
+		System.out.println(c.MeanMode(new int[] {4, 4, 4, 6, 2}));
 	}  
 }    
