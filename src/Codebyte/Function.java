@@ -5,6 +5,8 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
+
 class Function {  
 	
 	/**
@@ -693,12 +695,74 @@ class Function {
 		
 		return 0;
 	}
+	
+	public int MeanModeConcise(int[] arr) {
+		int mode = 0;
+		Arrays.sort(arr);
+		
+		for(int i : arr) {
+			mode += i;
+		}		
+		mode = mode / arr.length;
+
+		int mean = 0;
+		int temp = 0;
+		int maxCount = 0;
+		int count = 0;
+		for(int i : arr) {
+			if(temp == i) {
+				count++;
+				if(count > maxCount) {
+					mean = i;
+					maxCount = count;
+				}
+			} else {
+				count = 0;
+			}
+				
+			temp = i;
+		}
+						
+		if(mean == mode) {
+			return 1;
+		} 
+		
+		return 0;
+	}
+	
+	/**
+	 * Insert a dash '-' between odd numbers in the specified String. 
+	 * @param str
+	 * @return
+	 */
+	public String DashInsert(String str) {
+		String temp = "";
+		
+		for(int i = 0; i < str.length() - 1; i++) {
+			if(isOdd(Integer.valueOf(str.charAt(i))) && isOdd(Integer.valueOf(str.charAt(i + 1)))) {				
+				temp += str.charAt(i) + "-";
+			} else {
+				temp += str.charAt(i);
+			}
+		}
+		
+		return temp + str.charAt(str.length() - 1);
+	}
+	
+	/**
+	 * Check if the specified int is odd.
+	 * @param i
+	 * @return
+	 */
+	public boolean isOdd(int i) {
+		return (i % 2 != 0);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.MeanMode(new int[] {4, 4, 4, 6, 2}));
+		System.out.println(c.DashInsert(s.nextLine()));
 	}  
 }    
