@@ -757,12 +757,54 @@ class Function {
 	public boolean isOdd(int i) {
 		return (i % 2 != 0);
 	}
+	
+	/**
+	 * Swap the case on all Characters in the input String 
+	 * @param str
+	 * @return
+	 */
+	public String SwapCase(String str) {
+		String temp = "";
+		
+		for(char c : str.toCharArray()) {
+			if(Character.isLetter(c)) {
+				if(Character.isLowerCase(c)) {
+					temp += Character.toTitleCase(c);
+				} else {
+					temp += Character.toLowerCase(c);
+				}
+			} else {
+				temp += c;
+			}
+		}		
+		
+		return temp;
+	}
+	
+	/**
+	 * Search the specified String for numbers and return the total of all numbers. 
+	 * Must differentiate between single and multiple digit numbers.  
+	 * @param str
+	 * @return
+	 */
+	public  String NumberAddition(String str) {
+		int count = 0;
+		String[] array = str.split("[^0-9]+");
+		
+		for(String s : array) {
+			if(! s.equalsIgnoreCase("")) {
+				count += Integer.valueOf(s);
+			}
+		}
+				
+		return String.valueOf(count);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.DashInsert(s.nextLine()));
+		System.out.println(c.NumberAddition(s.nextLine()));
 	}  
 }    
