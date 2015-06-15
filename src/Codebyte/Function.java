@@ -844,12 +844,66 @@ class Function {
 		
 		return "false";
 	}
+	
+	public int countAdd = 0;
+	
+	/**
+	 * Return the 'additive persistence' of the specified input number 
+	 * For example the additive persistence of 2718 is 2
+	 * 0: 2718
+	 * 1: 18 = 2 + 7 + 1 + 8
+	 * 2:  9  = 1 + 1
+	 * @param num
+	 * @return
+	 */
+	public int  AdditivePersistence(int num) {
+		int count = 0;		
+		String numStr = String.valueOf(num);
+		
+		if(String.valueOf(num).length() == 1) {
+			return countAdd;
+		} else {
+			int temp = 0;
+			for(int i = 0; i < numStr.length(); i++) {
+				temp += Integer.valueOf(String.valueOf(numStr.charAt(i)));
+			}
+			
+			countAdd++;
+			AdditivePersistence(temp);
+		}
+		
+		return countAdd;
+	}
+	
+	/**
+	 * Taking suggestions from CoderByte user 'jakmaj' <br>
+	 * Using <code>while</code> loop and clean up adding the char as in Integer  
+	 * @param num
+	 * @return
+	 */
+	public int  AdditivePersistenceWhile(int num) {
+		int count = 0;		
+		String str = String.valueOf(num);
+		
+		while(String.valueOf(str).length() > 1) {
+			int sum = 0;
+			
+			for(int i = 0; i < str.length(); i++) {
+				 sum += str.charAt(i) - '0';
+			}
+			
+			str = String.valueOf(sum);			
+			count++;
+		}
+		
+		return count;
+	}
 	  
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.PowersofTwo(s.nextInt()));
+		System.out.println(c.AdditivePersistenceWhile(s.nextInt()));
 	}  
 }    
