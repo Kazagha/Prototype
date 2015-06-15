@@ -898,12 +898,35 @@ class Function {
 		
 		return count;
 	}
+	
+	/**
+	 * Find the 'Multiplicative Persistence' of the Specified input. 
+	 * @param num
+	 * @return
+	 */
+	public int MultiplicativePersistence(int num) {
+		int count = 0;		
+		String str = String.valueOf(num);
+		
+		while(String.valueOf(str).length() > 1) {
+			int sum = 1;
+			
+			for(int i = 0; i < str.length(); i++) {
+				 sum *= str.charAt(i) - '0';
+			}
+			
+			str = String.valueOf(sum);			
+			count++;
+		}
+		
+		return count;
+	}
 	  
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.AdditivePersistenceWhile(s.nextInt()));
+		System.out.println(c.MultiplicativePersistence(s.nextInt()));
 	}  
 }    
