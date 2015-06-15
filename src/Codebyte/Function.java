@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 class Function {  
@@ -921,12 +922,43 @@ class Function {
 		
 		return count;
 	}
+	
+	public String OffLineMinimum(String[] str) {
+		ArrayList<Integer> numArray = new ArrayList<>();
+		ArrayList<Integer> nums = new ArrayList<>();
+		
+		for(String s : str) {
+			if(! s.equals("E")) {
+				numArray.add(Integer.valueOf(s));
+			} else {
+				Integer low = null;
+				for(int i : numArray) {
+					if(low == null || i < low) {
+						low = i;
+					}					
+				}
+				nums.add(low);
+				numArray.remove((Integer)low);
+				
+			}
+		}
+		
+		String temp = "";
+		for(int i = 0; i < nums.size(); i++) {
+			if(i < nums.size() - 1 && nums.size() > 1) {
+					temp += String.valueOf(nums.get(i)) + ",";
+			} else {
+				temp += String.valueOf(nums.get(i));
+			}
+		}
+		
+		return temp;
+	}
 	  
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
-		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.MultiplicativePersistence(s.nextInt()));
+		System.out.println(c.OffLineMinimum(new String[] {"5","4","6","E","1","7","E","E","3","2"}));
 	}  
 }    
