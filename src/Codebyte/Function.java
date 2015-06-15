@@ -799,12 +799,36 @@ class Function {
 				
 		return String.valueOf(count);
 	}
+	
+	/**
+	 * Return the third longest String in the array. 
+	 * When Strings are the same length return the last String in the array
+	 * @param strArr
+	 * @return
+	 */
+	public String ThirdGreatest(String[] strArr) {
+		ArrayList<String> temp = new ArrayList<String>();
+		temp.add("");
+		
+		for(String s : strArr) {
+			
+			for(int i = 0; i < temp.size(); i++) {	
+				
+				if(s.length() > temp.get(i).length()) {
+					temp.add(i, s);	
+					break;
+				}
+			}			
+		}
+				
+		return temp.get(2);
+	}
   
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.NumberAddition(s.nextLine()));
+		System.out.println(c.ThirdGreatest(new String[] {"hello", "world", "after", "all"}));
 	}  
 }    
