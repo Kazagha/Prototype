@@ -823,12 +823,33 @@ class Function {
 				
 		return temp.get(2);
 	}
-  
+	
+	/**
+	 * Determine if the specified number is a power of two
+	 * 2^0, 2^1, 2^2, 2^3, 2^4, ...
+	 * @param num
+	 * @return
+	 */
+	public String PowersofTwo(int num) {
+		int power = 1;
+		
+		while(power <= num) {
+			if(power == num) {
+				return "true";
+			}
+			
+			power = power * 2;
+		}
+		
+		
+		return "false";
+	}
+	  
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Function c = new Function();
 		//System.out.print(c.ArithGeo(s.nextLine()));
-		System.out.println(c.ThirdGreatest(new String[] {"hello", "world", "after", "all"}));
+		System.out.println(c.PowersofTwo(s.nextInt()));
 	}  
 }    
