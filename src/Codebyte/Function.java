@@ -344,21 +344,7 @@ class Function {
 		return String.valueOf(array.length);
 	}
 	
-	/**
-	 * Check if the specified integer is a prime number
-	 * @param num
-	 * @return
-	 */
-	String PrimeTime(int num) {
-		if (num %2 == 0) return "false";
-		
-		for(int i = 2; i < num; i++) {
-			if((num % i) == 0) {
-				return "false";
-			}
-		}		
-		return "true";
-	}
+
 	
 	/**
 	 * Check if there are an equal number of 'o' and 'x' characters
@@ -507,19 +493,6 @@ class Function {
 		}
 		
 		return false; 
-	}
-	
-	String BinaryConverter(String str) {
-		int count = 0;
-		
-		for(double i = 0; i < str.length(); i++) {		
-			double temp = Character.digit(str.charAt((int) i), 10);
-			temp = temp * (Math.pow(2, (str.length() - i - 1)));
-			
-			count += temp;
-		}
-		
-		return String.valueOf(count);
 	}
 	
 	/**
