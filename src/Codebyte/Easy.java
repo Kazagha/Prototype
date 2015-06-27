@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import com.sun.xml.internal.fastinfoset.util.StringArray;
 import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
-class Function {  
+class Easy {  
 	
 	/**
 	 * Reverse the specified input string
@@ -931,7 +931,7 @@ class Function {
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
-		Function c = new Function();
+		Easy c = new Easy();
 		System.out.println(c.OffLineMinimum(new String[] {"5","4","6","E","1","7","E","E","3","2"}));
 	}  
 }    
