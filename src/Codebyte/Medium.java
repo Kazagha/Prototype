@@ -242,15 +242,67 @@ public class Medium {
 			return "true";
 		}
 		
-		//System.out.print(args.length);
-		
 		return "false";
+	}
+	
+	/**
+	 * Return "Arithmetic" if the sequence follows an arithmetic pattern
+	 * 	Or return "Geometric" of the sequence follows a geometric pattern
+	 * 	Failing that return -1
+	 * 	Arguments can include negative numbers 
+	 * @param arr
+	 * @return
+	 */
+	public String ArithGeoII(int[] arr) {
+		if(Geometric(arr)) {
+			return "Geometric";
+		}	
+		
+		if(Arithmetic(arr)) {
+			return "Arithmetic";
+		}
+			
+		return "-1";
+	}
+	
+	/**
+	 * Return true if the specified array is a arithmetic sequence
+	 * @param arr
+	 * @return
+	 */
+	boolean Arithmetic(int[] arr) {
+		int base = arr[1] - arr[0];
+		
+		for(int i = 1; i < arr.length; i++) {
+			if(arr[i] - arr[i - 1] != base) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Return true if the specified array is a geometric sequence
+	 * @param arr
+	 * @return
+	 */
+	boolean Geometric(int[] arr) {
+		double base = arr[1] / arr[0];
+				
+		for(int i = 1; i < arr.length; i++) {
+			if(arr[i] / arr[i - 1] != base) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.StringScramble("h3llko", "hello"));
+		System.out.println(c.ArithGeoII(new int[] {1, -3, 9, -27, 81, -243}));
 	} 
 }
