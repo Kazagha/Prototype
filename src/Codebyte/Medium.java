@@ -221,10 +221,36 @@ public class Medium {
 		return primes;
 	}
 	
+	/**
+	 * Return True of if a portion of str1 characters can be rearranged to match str2
+	 * @param str1
+	 * @param str2
+	 * @return
+	 */
+	public String StringScramble(String str1, String str2) {
+		ArrayList<Character> array = new ArrayList<>();
+		
+		for(char c : str2.toCharArray()) {
+			array.add(c);
+		}
+		
+		for(char c : str1.toCharArray()) {
+			array.remove((Character) c);
+		}
+		
+		if(array.isEmpty()) {
+			return "true";
+		}
+		
+		//System.out.print(args.length);
+		
+		return "false";
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.Division(36, 54));
+		System.out.println(c.StringScramble("h3llko", "hello"));
 	} 
 }
