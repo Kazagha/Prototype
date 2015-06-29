@@ -144,6 +144,12 @@ public class Medium {
 	
 	ArrayList<Integer> primes = getPrimeArray(10);
 	
+	/**
+	 * Take both input numbers and return the Greatest Common Factor
+	 * @param num1
+	 * @param num2
+	 * @return <code>int</code> - Greatest Commom Factor of the specified numbers
+	 */
 	int Division(int num1, int num2) {		
 		ArrayList primeNum1 = primeFactorization(num1);
 		ArrayList primeNum2 = primeFactorization(num2);
@@ -169,6 +175,11 @@ public class Medium {
 		return gcf;
 	}
 	
+	/**
+	 * Return the prime factorization of the specified int
+	 * @param num
+	 * @return
+	 */
 	ArrayList<Integer> primeFactorization(int num) {
 		ArrayList<Integer> array = new ArrayList<>();
 		
@@ -184,6 +195,11 @@ public class Medium {
 		return array;
 	}
 	
+	/**
+	 * Return an ArrayList of prime numbers
+	 * @param num
+	 * @return
+	 */
 	ArrayList<Integer> getPrimeArray(int num) {
 		int count = 1;
 		ArrayList<Integer> primes = new ArrayList<Integer>();
