@@ -331,7 +331,7 @@ public class Medium {
 	 * @param counter
 	 * @return
 	 */
-	boolean AddCalc(int targetInt, int counter, ArrayList<Integer> arr) {
+	public boolean AddCalc(int targetInt, int counter, ArrayList<Integer> arr) {
 		
 		// Check if the current counter equals the target
 		if(counter == targetInt) {
@@ -358,7 +358,7 @@ public class Medium {
 	 * @param str
 	 * @return
 	 */
-	String LetterCount(String str) { 
+	public String LetterCount(String str) { 
 		String[] strArray = str.split(" ");
 		String longestStr = "-1";
 		int maxCount = 1;
@@ -383,10 +383,36 @@ public class Medium {
 		return longestStr;
 	}
 	
+	public String CaesarCipher(String str, int num) {
+		String tempStr = "";
+		
+		for(char c : str.toCharArray()) {
+			if(Character.isLetter(c)) {
+				int charInt = Character.getNumericValue(c) + num;
+				
+				if(charInt > 35) {
+					charInt = charInt - 26;
+				}			
+				
+				char tempChar  = Character.forDigit(charInt, 36);
+				
+				if(Character.isTitleCase(c)) {
+					tempChar = Character.toTitleCase(tempChar);
+				}
+				
+				tempStr += tempChar;
+			} else {
+				tempStr += c;
+			}
+		}		
+		
+		return tempStr;
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.LetterCount(s.nextLine()));
+		System.out.println(c.CaesarCipher("Ch23EEEEris", 3));
 	} 
 }
