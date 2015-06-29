@@ -1,6 +1,7 @@
 package Codebyte;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Medium {
@@ -298,11 +299,63 @@ public class Medium {
 		
 		return true;
 	}
+
+	/**
+	 * Return  true if any combination of numbers in the array can be added 
+	 *  up to equal the largest number in the array
+	 * @param arr
+	 * @return
+	 */
+	public String ArrayAddition(int[] arr) {
+		ArrayList<Integer> intArray = new ArrayList<Integer>();
+		Arrays.sort(arr);
+				
+		for(int i : arr) {
+			intArray.add(i);
+		}
+		
+		int targetInt = intArray.get(intArray.size() - 1);
+		intArray.remove((Integer)targetInt);
+		
+		if(AddCalc(targetInt, 0, intArray)) {
+			return "true";
+		}		
+		
+		return "false";
+	}
+	
+	/**
+	 * Check if the current number is the same as the target
+	 * Try adding each of the Integers in the array to find the target
+	 * @param arr
+	 * @param counter
+	 * @return
+	 */
+	boolean AddCalc(int targetInt, int counter, ArrayList<Integer> arr) {
+		
+		// Check if the current counter equals the target
+		if(counter == targetInt) {
+			return true;
+		}
+		
+		// Iterate through the numbers in the array
+		for(int i : arr) {
+			// Create a temporary array and remove the current number
+			ArrayList<Integer> temp = new ArrayList<Integer>(arr);
+			temp.remove((Integer) i);
+			// Check if the temporary array matches the target 
+			if(AddCalc(targetInt, (counter + i), temp)) {
+				return true;
+			}
+		}
+		
+		return false; 
+	}
 	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.ArithGeoII(new int[] {1, -3, 9, -27, 81, -243}));
+		System.out.println(c.ArrayAddition(new int[] {4, 6, 23, 10, 1, 3}));
 	} 
 }
