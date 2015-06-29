@@ -1,5 +1,6 @@
 package Codebyte;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Medium {
@@ -68,10 +69,146 @@ public class Medium {
 		return encStr;
 	}
 	
+	/**
+	 * Return the <code>num</code>th prime number in the sequence
+	 * @param num 
+	 * @return - The specified prime number
+	 */
+	int PrimeMover(int num) {		
+		int count = 1;
+		ArrayList<Integer> primes = new ArrayList<Integer>();
+		
+		// Search for prime numbers the specified number of times
+		for(int i = 0; i < num; i++) {
+			// Start with the next number in the sequence
+			count ++;
+			
+			// While the number is not prime increase the count
+			while(! PrimeNum(count, primes)) {				
+				count ++;				
+			}
+			
+			// Add the prime number into the array 
+			primes.add(count);
+		}
+		
+		return count;
+	}
+	
+	/**
+	 * Check if the specified number is a prime, based on the array of know prime numbers
+	 * @param count - The specified number
+	 * @param primes - The <b>current</b> array of prime numbers
+	 * @return - True if the number is Prime
+	 */
+	boolean PrimeNum(int count, ArrayList primes) {
+		for(Object i : primes.toArray()) {
+			if((count % (Integer) i) == 0) {
+				return false;
+			}
+		}		
+		
+		return true;
+	}
+	
+	/**
+	 * Return true if the specified String is a Palidrome
+	 * The same forward as it is backwards, ignoring spaces and punctuation
+	 * @param str
+	 * @return
+	 */
+	public  String PalindromeTwo(String str) {
+		// Replace invalid characters, including spaces
+		str = str.replaceAll("[^A-Za-z0-9]", "");
+		str = str.toLowerCase();
+		
+		String reverseString = reverseStr(str);
+		
+		return String.valueOf(str.equals(reverseString));
+	}
+	
+	/**
+	 * Reverse the specified String
+	 * @param str
+	 * @return
+	 */
+	String reverseStr(String str) {
+		String reverseString = "";
+		
+		for(int i = str.length() - 1; i >= 0; i--) {
+			reverseString += str.charAt(i);
+		}	
+		
+		return reverseString;
+	}
+	
+	ArrayList<Integer> primes = getPrimeArray(10);
+	
+	int Division(int num1, int num2) {		
+		ArrayList primeNum1 = primeFactorization(num1);
+		ArrayList primeNum2 = primeFactorization(num2);
+		ArrayList primeCommon = new ArrayList<>();
+		
+		for(Object i :  primeNum1.toArray()) {
+			for(Object j : primeNum2.toArray()) {
+				if((Integer) i == (Integer) j) {
+					primeCommon.add(i);
+					break;
+				}
+			}
+			
+			primeNum2.remove(primeCommon.get(primeCommon.size() - 1));
+		}
+		
+		int gcf = 1;
+		
+		for(Object i : primeCommon.toArray()) {
+			gcf *= (Integer) i;
+		}		
+		
+		return gcf;
+	}
+	
+	ArrayList<Integer> primeFactorization(int num) {
+		ArrayList<Integer> array = new ArrayList<>();
+		
+		while(! PrimeNum(num, primes)) {
+			for(int i : primes) {
+				if(num % i == 0) {					
+					num = num / i;
+					array.add(i);
+					break;
+				}
+			}
+		}		
+		return array;
+	}
+	
+	ArrayList<Integer> getPrimeArray(int num) {
+		int count = 1;
+		ArrayList<Integer> primes = new ArrayList<Integer>();
+		
+		// Search for prime numbers the specified number of times
+		for(int i = 0; i < num; i++) {
+			// Start with the next number in the sequence
+			count ++;
+			
+			// While the number is not prime increase the count
+			while(! PrimeNum(count, primes)) {				
+				count ++;				
+			}
+			
+			// Add the prime number into the array 
+			primes.add(count);
+		}
+		
+		return primes;
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c. RunLength(s.nextLine()));
+		System.out.println(c.Division(36, 54));
 	} 
 }
