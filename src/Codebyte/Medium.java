@@ -409,10 +409,36 @@ public class Medium {
 		return tempStr;
 	}
 	
+	/**
+	 * Using the input array return the number that occurs most frequently (the mode)
+	 *  If there is more than one mode, return the number that occurs first in the array
+	 * @param arr
+	 * @return
+	 */
+	public String SimpleMode (int[] arr) {
+		int modeCount = 1;
+		String modeNum = "-1";
+		for(int i = 0; i < arr.length; i++) {
+			int loopCount = 1;
+			for(int j = i + 1; j < arr.length; j++) {
+				if(arr[i] == arr[j]) {
+					loopCount++;
+				}
+				
+				if(loopCount > modeCount) {
+					modeNum = String.valueOf(arr[i]); 
+					modeCount = loopCount;
+				}
+			}
+		}		
+		
+		return String.valueOf(modeNum);
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.CaesarCipher("Ch23EEEEris", 3));
+		System.out.println(c.SimpleMode(new int[] {3,4,1,6,10}));
 	} 
 }
