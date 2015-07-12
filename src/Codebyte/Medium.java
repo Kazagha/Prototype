@@ -383,9 +383,15 @@ public class Medium {
 		return longestStr;
 	}
 	
+	/**
+	 * Caesar Cipher works by shifting each letter in the string N places down in the alphabet
+	 * @param str - The String to shift
+	 * @param num - N number of places
+	 * @return
+	 */
 	public String CaesarCipher(String str, int num) {
 		String tempStr = "";
-		
+	
 		for(char c : str.toCharArray()) {
 			if(Character.isLetter(c)) {
 				int charInt = Character.getNumericValue(c) + num;
@@ -396,17 +402,47 @@ public class Medium {
 				
 				char tempChar  = Character.forDigit(charInt, 36);
 				
-				if(Character.isTitleCase(c)) {
-					tempChar = Character.toTitleCase(tempChar);
+				if(Character.isUpperCase(c)) {
+					tempChar = Character.toUpperCase(tempChar);
 				}
 				
 				tempStr += tempChar;
 			} else {
 				tempStr += c;
 			}
-		}		
+		}
 		
 		return tempStr;
+	}
+	
+	/**
+	 * CaesarCipher, attempting to use the String Builder class
+	 * @param str
+	 * @param num
+	 * @return
+	 */
+	public String CaesarCipherStringBuilder(String str, int num) {
+		StringBuilder sb = new StringBuilder(str);
+		
+		for(int i = 0; i < sb.length(); i++) {
+			if(Character.isLetter(sb.charAt(i))) {
+				char c;
+			
+				int numChar = Character.getNumericValue(sb.charAt(i)) + num;
+				
+				if(numChar > 35) {
+					numChar -= 26;
+				}				
+				
+				if(Character.isUpperCase(sb.charAt(i))) {
+					sb.setCharAt(i, (char) Character.toUpperCase(numChar));
+				} else {
+					sb.setCharAt(i, (char) numChar); 
+				}
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	/**
@@ -420,6 +456,7 @@ public class Medium {
 		String modeNum = "-1";
 		for(int i = 0; i < arr.length; i++) {
 			int loopCount = 1;
+			
 			for(int j = i + 1; j < arr.length; j++) {
 				if(arr[i] == arr[j]) {
 					loopCount++;
@@ -430,15 +467,21 @@ public class Medium {
 					modeCount = loopCount;
 				}
 			}
-		}		
+		}
 		
 		return String.valueOf(modeNum);
+	}
+	
+	public void charPrint(int num) {		
+		for(int i = 0; i < num; i++) {
+			System.out.println(i + ": " + String.valueOf(Character.forDigit(i, Character.MAX_RADIX)));
+		}
 	}
 	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.SimpleMode(new int[] {3,4,1,6,10}));
+		System.out.println(c.CaesarCipher("This is a TEST!", 2));
 	} 
 }
