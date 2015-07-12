@@ -394,19 +394,20 @@ public class Medium {
 	
 		for(char c : str.toCharArray()) {
 			if(Character.isLetter(c)) {
-				int charInt = Character.getNumericValue(c) + num;
-				
-				if(charInt > 35) {
-					charInt = charInt - 26;
-				}			
-				
-				char tempChar  = Character.forDigit(charInt, 36);
+				char charInt = c;
+				charInt += num;
 				
 				if(Character.isUpperCase(c)) {
-					tempChar = Character.toUpperCase(tempChar);
-				}
+					if(charInt > 'Z') {
+						charInt -= 26;
+					}
+				} else {
+					if(charInt > 'z') {
+						charInt -= 26;
+					}
+				}			
 				
-				tempStr += tempChar;
+				tempStr += charInt;
 			} else {
 				tempStr += c;
 			}
