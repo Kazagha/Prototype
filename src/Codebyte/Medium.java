@@ -521,10 +521,25 @@ public class Medium {
 		return diff;		
 	}
 	
+	/**
+	 * Divide int1 by int2 and  return the result as a string with properly
+	 *  formatted commas and 4 significant digits after the decimal place
+	 * @param int1
+	 * @param int2
+	 * @return
+	 */
+	public String  FormattedDivision(int int1, int int2) {
+		double total = (double) int1 / (double) int2;
+		
+		String s = String.format("%,1.4f", total);
+		
+		return s;
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.ConsecutiveCount(new int[] {5,10,15}));
+		System.out.println(c.FormattedDivision(101077282, 21123));
 	} 
 }
