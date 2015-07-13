@@ -536,10 +536,52 @@ public class Medium {
 		return s;
 	}
 	
+	/**
+	 *  Take the str parameter being passed which will be two times 
+	 *  (each properly formatted with a colon and am or pm) separated 
+	 *  by a hyphen and return the total number of minutes between the two times.
+	 *  The time will be in a 12 hour clock format. For example: 
+	 *   	If str is 9:00am-10:00am then the output should be 60.
+	 *      If str is 1:00pm-11:00am the output should be 1320
+	 * @param str
+	 * @return
+	 */
+	public String CountingMinutes(String str) {
+		String times[] = str.split("-");
+		String timeStart = times[0];
+		String timeEnd = times[1];
+		
+		int intStart = timeToInt(timeStart);
+		int intEnd = timeToInt(timeEnd);
+		int time = 0;
+		
+		if(intEnd > intStart) {
+			time = intEnd - intStart;
+			
+		} else if (intEnd < intStart) {	
+			time = (60 * 24) - (intStart - intEnd);
+		} 
+		
+		return String.valueOf(time);
+	}
+	
+	public int timeToInt(String s) {
+		String str[] = s.split(":");		
+		int hour = Integer.valueOf(str[0]) * 60;
+		int minute = Integer.valueOf(str[1].substring(0, 2));
+		int period = 0;
+		
+		if(str[1].substring(2, 4).equals("pm")) {
+			period += (12 * 60);
+		}		
+		
+		return period + minute + hour;
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.FormattedDivision(101077282, 21123));
+		System.out.println(c.CountingMinutes("12:30pm-12:00am"));
 	} 
 }
