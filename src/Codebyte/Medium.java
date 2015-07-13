@@ -479,10 +479,52 @@ public class Medium {
 		}
 	}
 	
+	/**
+	 * Return the number of ints required to make the input array consecutive 
+	 * @param args
+	 * @return
+	 */
+	public int Consecutive(int[] args) {
+		Arrays.sort(args);
+		int counter = 0;
+		
+		for(int i = args[0]; i <= args[args.length - 1]; i++){
+			//System.out.format("%d%n", i);
+			boolean match = false;
+			
+			for(int j : args) {
+				if(i == j) {
+					//System.out.format("  %d%n", counter);	
+					match = true;
+					break;
+				}					
+			}
+			
+			if(! match) {
+				counter++;
+			}
+		}
+		
+		return counter;
+	}
+	
+	/**
+	 * Return the number of ints required to make the input array consecutive
+	 * @param args
+	 * @return
+	 */
+	public int ConsecutiveCount(int[] args) {
+		Arrays.sort(args);
+		int diff = args[args.length - 1] - args[0] + 1;
+		diff -= (args.length);
+				
+		return diff;		
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.CaesarCipher("This is a TEST!", 2));
+		System.out.println(c.ConsecutiveCount(new int[] {5,10,15}));
 	} 
 }
