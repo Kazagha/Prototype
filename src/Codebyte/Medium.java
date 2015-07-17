@@ -2,6 +2,7 @@ package Codebyte;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Medium {
@@ -577,11 +578,57 @@ public class Medium {
 		
 		return period + minute + hour;
 	}
+
+	/**
+	 *  Take the num parameter being passed and return the next number greater than num using the same digits
+	 * @param i
+	 * @return
+	 */
+	public int PermutationStep (int i) {
+		ArrayList<Integer> greatest = new ArrayList();
+		ArrayList<Integer> least = new ArrayList();
+		
+		for(char c : String.valueOf(i).toCharArray()) { greatest.add(Character.getNumericValue(c)); }
+		
+		while(greatest.size() > 0) {
+			int temp = greatest.get(greatest.size() - 1);
+			greatest.remove(greatest.size() - 1);
+			
+			Integer high = null;
+			for(Object o : least) {
+				if((Integer) o > temp) {
+					high = (Integer) o;
+					break;
+				}
+			}
+			
+			if(high != null) {
+				greatest.add(high);
+				least.remove((Integer) high);
+				
+				least.add(temp);
+				Collections.sort(least);
+				
+				//System.out.println(greatest.toString() + " " + least.toString());
+				
+				String concat = "";
+				for(Object c : greatest.toArray()) { concat += c; }
+				for(Object c : least.toArray()) { concat += c; }
+				
+				return Integer.valueOf(concat);
+			}
+			
+			least.add(temp);
+			Collections.sort(least);
+		}				
+		
+		return -1;
+	}
 	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.CountingMinutes("12:30pm-12:00am"));
+		System.out.println(c.PermutationStep(11121));
 	} 
 }
