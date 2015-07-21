@@ -566,8 +566,13 @@ public class Medium {
 		return String.valueOf(time);
 	}
 	
-	public int timeToInt(String s) {
-		String str[] = s.split(":");		
+	/**
+	 * Take the specified time and return the number of minutes from the beginning of the day 
+	 * @param time
+	 * @return
+	 */
+	public int timeToInt(String time) {
+		String str[] = time.split(":");		
 		int hour = Integer.valueOf(str[0]) * 60;
 		int minute = Integer.valueOf(str[1].substring(0, 2));
 		int period = 0;
@@ -609,8 +614,6 @@ public class Medium {
 				least.add(temp);
 				Collections.sort(least);
 				
-				//System.out.println(greatest.toString() + " " + least.toString());
-				
 				String concat = "";
 				for(Object c : greatest.toArray()) { concat += c; }
 				for(Object c : least.toArray()) { concat += c; }
@@ -625,10 +628,64 @@ public class Medium {
 		return -1;
 	}
 	
+	/**
+	 * Take the target parameter being passed and return the next number 
+	 * 	greater than the target using the same digits
+	 * 
+	 * Taking suggestions from CoderByte user KSmithson this implementation
+	 * 	generates all possible permutations before testing each one   
+	 * @param target
+	 * @return
+	 */
+	public int PermutationStepBrute(int target) {
+		ArrayList<Integer> perms = new ArrayList();
+		
+		// Generate all possible permutations
+		perm("", String.valueOf(target), perms);
+						
+		// Set the starting value of the lowest value
+		Integer lowest = Integer.MAX_VALUE;
+		// Test each permutation in the array
+		for(Integer num : perms) { 
+			if(num > target && num < lowest) {
+				lowest = num;
+			}
+		}		
+		
+		// Check if a lowest value has been found, otherwise return -1
+		if(lowest == Integer.MAX_VALUE)  
+			return -1;  		
+		
+		return lowest;
+	}
+	
+	/**
+	 * Generate permutations by selecting characters from the suffix Strring and adding them
+	 * 	to the prefix String. When the suffix is empty, add the number in the prefix to the 
+	 * 	array perms.
+	 * @param prefix
+	 * @param suffix
+	 * @param perms
+	 */
+	public void perm(String prefix, String suffix, ArrayList<Integer> perms) {
+		// If the suffix is empty, then add the 'prefix' number to the array
+		if(suffix.length() == 0) {
+			perms.add(Integer.valueOf(prefix));
+		}
+		
+		// For each character add to the prefix and remove from the suffix
+		for(int i = 0; i <= suffix.length() - 1; i++) {
+			String tempPrefix = prefix + suffix.charAt(i);
+			String tempSuffix = suffix.substring(0, i) + suffix.substring(i + 1, suffix.length());
+			// Recursively repeat the process
+			perm(tempPrefix, tempSuffix, perms);			
+		}	
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.PermutationStep(11121));
+		System.out.println(c.PermutationStepBrute(11121));
 	} 
 }
