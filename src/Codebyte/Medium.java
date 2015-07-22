@@ -699,14 +699,15 @@ public class Medium {
 			// While the number is not prime increase the count
 			while(! PrimeNum(count, primes)) {				
 				count ++;				
-			}
+			}			
 			
-			if(lenght == String.valueOf(count).length()) {
-				// Add the prime number into the array 
-				primes.add(count);
-			} else if (String.valueOf(count).length() > lenght) {
+			if (String.valueOf(count).length() > lenght) {
 				break;
 			}
+			
+			// Add the prime number into the array 
+			primes.add(count);
+
 		}
 		
 		return primes;
@@ -720,9 +721,11 @@ public class Medium {
 	public int PrimeChecker(int num) {
 		ArrayList<Integer> primes = getPrimesByLenght(String.valueOf(num).length());
 		ArrayList<Integer> perms = new ArrayList(); 
-						
+					
 		// Populate the permutations of the num
 		perm("", String.valueOf(num), perms);
+		
+		for(Integer i : primes) { System.out.format("%d%n", i); }
 		
 		for(Integer per : perms) {
 			for(Integer pri : primes) {				
