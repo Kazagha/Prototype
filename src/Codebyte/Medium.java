@@ -682,10 +682,63 @@ public class Medium {
 		}	
 	}
 	
+	/**
+	 * Return an ArrayList of prime numbers
+	 * @param num
+	 * @return
+	 */
+	ArrayList<Integer> getPrimesByLenght(int lenght) {
+		int count = 1;
+		ArrayList<Integer> primes = new ArrayList<Integer>();
+		
+		// Search for prime numbers the specified number of times
+		while(true) {
+			// Start with the next number in the sequence
+			count ++;
+			
+			// While the number is not prime increase the count
+			while(! PrimeNum(count, primes)) {				
+				count ++;				
+			}
+			
+			if(lenght == String.valueOf(count).length()) {
+				// Add the prime number into the array 
+				primes.add(count);
+			} else if (String.valueOf(count).length() > lenght) {
+				break;
+			}
+		}
+		
+		return primes;
+	}
+	
+	/**
+	 *  Take num and return 1 if any arrangement of num comes out to be a prime number, otherwise return 0.
+	 * @param num
+	 * @return
+	 */
+	public int PrimeChecker(int num) {
+		ArrayList<Integer> primes = getPrimesByLenght(String.valueOf(num).length());
+		ArrayList<Integer> perms = new ArrayList(); 
+						
+		// Populate the permutations of the num
+		perm("", String.valueOf(num), perms);
+		
+		for(Integer per : perms) {
+			for(Integer pri : primes) {				
+				if(per.equals(pri)) {
+					return 1;
+				}
+			}
+		}
+		
+		return 0;
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.PermutationStepBrute(11121));
+		System.out.println(c.PrimeChecker(s.nextInt()));
 	} 
 }
