@@ -736,10 +736,35 @@ public class Medium {
 		return 0;
 	}
 	
+	public String DashInsertII (int num) {
+		StringBuilder sb = new StringBuilder(String.valueOf(num));
+		int counter = 0;
+		
+		while(counter < sb.length() - 1){
+			if(Character.getNumericValue(sb.charAt(counter)) == 0 || Character.getNumericValue(sb.charAt(counter + 1)) == 0)  {
+				
+			} else if(isEven(Character.getNumericValue(sb.charAt(counter))) && isEven(Character.getNumericValue(sb.charAt(counter + 1)))) {				
+				counter++;
+				sb.insert(counter, "*");
+			} else if ((! isEven(Character.getNumericValue(sb.charAt(counter))) && ! isEven(Character.getNumericValue(sb.charAt(counter + 1))))) {
+				counter++;
+				sb.insert(counter, "-");
+			}
+			
+			counter++;	
+		}
+		
+		return sb.toString();
+	}
+	
+	public Boolean isEven(int num) {		
+		return (num % 2 == 0);
+	}
+	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.PrimeChecker(s.nextInt()));
+		System.out.println(c.DashInsertII(s.nextInt()));
 	} 
 }
