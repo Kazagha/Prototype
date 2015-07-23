@@ -665,7 +665,7 @@ public class Medium {
 	 * 	array perms.
 	 * @param prefix
 	 * @param suffix
-	 * @param perms
+	 * @param perms/
 	 */
 	public void perm(String prefix, String suffix, ArrayList<Integer> perms) {
 		// If the suffix is empty, then add the 'prefix' number to the array
@@ -724,11 +724,9 @@ public class Medium {
 					
 		// Populate the permutations of the num
 		perm("", String.valueOf(num), perms);
-		
-		for(Integer i : primes) { System.out.format("%d%n", i); }
-		
-		for(Integer per : perms) {
-			for(Integer pri : primes) {				
+				
+		for(Integer pri : primes) {
+			for(Integer per : perms) {				
 				if(per.equals(pri)) {
 					return 1;
 				}
