@@ -736,6 +736,12 @@ public class Medium {
 		return 0;
 	}
 	
+	/**
+	 * Insert dashes ('-') between each two odd numbers and insert asterisks ('*') between each two even numbers in str
+	 * Don't count zero as odd or even 
+	 * @param num
+	 * @return
+	 */
 	public String DashInsertII (int num) {
 		StringBuilder sb = new StringBuilder(String.valueOf(num));
 		int counter = 0;
@@ -757,14 +763,40 @@ public class Medium {
 		return sb.toString();
 	}
 	
-	public Boolean isEven(int num) {		
+	public String DashInsertIIString(int num) {
+		String sb = String.valueOf(num);
+		String str = "";
+		
+		for(int i = 0; i < sb.length() - 1; i++) { 	
+			str += Character.getNumericValue(sb.charAt(i));	
+			
+			if(Character.getNumericValue(sb.charAt(i)) == 0 || Character.getNumericValue(sb.charAt(i + 1)) == 0) {
+				// Do nothing
+			} else if(isEven(Character.getNumericValue(sb.charAt(i))) && isEven(Character.getNumericValue(sb.charAt(i + 1)))) {
+				str += "*";
+			}  else if ((! isEven(Character.getNumericValue(sb.charAt(i))) && ! isEven(Character.getNumericValue(sb.charAt(i + 1))))) {
+				str += "-";
+			}
+		}
+		
+		str += sb.charAt(sb.length() - 1);
+		
+		return str;		
+	}
+	
+	public boolean isEven(int num) {		
 		return (num % 2 == 0);
+	}
+	
+	public String SwapII(String str) {
+		
+		return str;
 	}
 	
 	public static void main (String[] args) {  
 		// keep this function call here     
 		Scanner  s = new Scanner(System.in);
 		Medium c = new Medium();
-		System.out.println(c.DashInsertII(s.nextInt()));
+		System.out.println(c.DashInsertIIString(s.nextInt()));
 	} 
 }
