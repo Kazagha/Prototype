@@ -26,7 +26,7 @@ public class CraftCalc {
 			s.nextLine();
 			int roll = d20();		
 			
-			if((skill + roll - dc) > 0) {
+			if((skill + roll - dc) >= 0) {
 				progress += (skill + roll) * dc;
 				System.out.format("Check: %d %nProgress: %d/%d(sp)%n", roll + skill, progress, price);				
 			} else {
