@@ -1,9 +1,11 @@
 package craft;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class CraftCalc {
 	Scanner s;
+	Random rand;
 	int price;
 	int dc;
 	int skill;
@@ -12,6 +14,7 @@ public class CraftCalc {
 	
 	public CraftCalc() {
 		s = new Scanner(System.in);
+		rand = new Random();
 		
 		System.out.println("Price: ");
 		price = (Integer.valueOf(s.nextInt())) * 10;
@@ -32,16 +35,23 @@ public class CraftCalc {
 			} else {
 				System.out.format("Check: %d (Failed %d) %nProgress: %d/%d(sp)%n", roll + skill, roll + skill - dc, progress, price);
 			}
-				
 		}
 	}
-	
+
+	/**
+	 * The method nextInt(4) will return 0, 1, 2 and 3. The range starts at zero.
+	 * The range is determined by (min - max) plus 1 
+	 * The min value offsets the start of the range, as the minimum value is zero  
+	 * @return - A random number between the min and max
+	 */
 	public int d20() {
-		return (int) (1 + (Math.random() * 19)) ;
+		int min = 1; 
+		int max = 20; 
+		return rand.nextInt((max - min) + 1) + min;
 	}
 	
 	public static void main (String[] args) {
 		CraftCalc c = new CraftCalc();
-		c.roll();
+		c.roll(); 
 	} 
 }
