@@ -763,6 +763,14 @@ public class Medium {
 		return sb.toString();
 	}
 	
+	/**
+	 * Attempt without the use of the StringBuilder class
+	 * 
+	 * Insert dashes ('-') between each two odd numbers and insert asterisks ('*') between each two even numbers in str
+	 * Don't count zero as odd or even 
+	 * @param num
+	 * @return
+	 */
 	public String DashInsertIIString(int num) {
 		String sb = String.valueOf(num);
 		String str = "";
