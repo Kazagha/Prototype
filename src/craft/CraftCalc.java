@@ -11,10 +11,12 @@ public class CraftCalc {
 	int skill;
 	int progress;
 	int roll;
+	int weeks;
 	
 	public CraftCalc() {
 		s = new Scanner(System.in);
 		rand = new Random();
+		weeks = 0;
 		
 		System.out.println("Price: ");
 		price = (Integer.valueOf(s.nextInt())) * 10;
@@ -27,13 +29,14 @@ public class CraftCalc {
 	public void roll() {
 		while(progress < price) {
 			s.nextLine();
-			int roll = d20();		
+			int roll = d20();
+			weeks++;
 			
 			if((skill + roll - dc) >= 0) {
 				progress += (skill + roll) * dc;
-				System.out.format("Check: %d %nProgress: %d/%d(sp)%n", roll + skill, progress, price);				
+				System.out.format("Week: %d%nCheck: %d %nProgress: %d/%d(sp)%n", weeks, roll + skill, progress, price);				
 			} else {
-				System.out.format("Check: %d (Failed %d) %nProgress: %d/%d(sp)%n", roll + skill, roll + skill - dc, progress, price);
+				System.out.format("Week: %d%nCheck: %d (Failed %d) %nProgress: %d/%d(sp)%n", weeks, roll + skill, roll + skill - dc, progress, price);
 			}
 		}
 	}
