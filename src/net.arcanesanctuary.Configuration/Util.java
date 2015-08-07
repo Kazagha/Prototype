@@ -17,22 +17,25 @@ public class Util {
 		arrayL2 = new ArrayList<String>();
 	}
 	
-	public ConfNode getConfNodes() {	
+	public void addConfNodes(ConfNode rootNode) {	
 		populateArray(arrayL1);
 		populateAttributes(arrayL2);
 		
-		ConfNode rootNode = new ConfNode("root", "The root node", null);		
+		//ConfNode rootNode = new ConfNode("root", "The root node", null);
+		//ConfNode rootNode = cn;
 		
 		for(int i = 0; i < random(1, 15); i++) {
 			// Select randomly from the array
 			String animal = arrayL1.get(random(0, arrayL1.size() - 1));
-			ConfNode cn = new ConfNode("Companion", "Companion animal", animal);
+			ConfNode cn = new ConfNode("Companion", null, "");
+			ConfNode cnType = new ConfNode("Type", null, animal);
+			cn.add(cnType);
 						
 			// Add 1-3 bonuses at random
 			for(int j = 0; j < random(0, 3); j++) {
-				String type = arrayL2.get(random(0, arrayL2.size() - 1));
+				String bonusStr = arrayL2.get(random(0, arrayL2.size() - 1));
 				
-				ConfNode bonus = new ConfNode("Bonus", "Provides a bonus to", type);
+				ConfNode bonus = new ConfNode("Bonus", "Provides a bonus to", bonusStr);
 				cn.add(bonus);				
 			}
 			
@@ -40,7 +43,7 @@ public class Util {
 			rootNode.add(cn);
 		}
 		
-		return rootNode;
+		//return rootNode;
 	}
 	
 	public int random(int min, int max) { 
