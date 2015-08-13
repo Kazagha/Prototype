@@ -1,6 +1,8 @@
-package net.arcanesanctuary.Configuration;
+package Conf_Testing;
 
 import java.io.File;
+
+import net.arcanesanctuary.Configuration.*;
 
 public class ExampleNode {
 	

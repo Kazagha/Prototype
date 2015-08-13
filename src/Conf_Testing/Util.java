@@ -1,10 +1,12 @@
-package net.arcanesanctuary.Configuration;
+package Conf_Testing;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import net.arcanesanctuary.Configuration.ConfNode;
 
 public class Util {
 	Random rand;
