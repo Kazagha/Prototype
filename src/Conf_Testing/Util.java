@@ -26,7 +26,7 @@ public class Util {
 		for(int i = 0; i < random(1, 15); i++) {
 			// Select randomly from the array
 			String animal = arrayL1.get(random(0, arrayL1.size() - 1));
-			Conf cn = new Conf("Companion", null, "");
+			Conf cn = new Conf("Companion", null, null);
 			Conf cnType = new Conf("Type", null, animal);
 			cn.appendChild(cnType);
 						
