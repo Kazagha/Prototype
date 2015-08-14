@@ -6,7 +6,7 @@ import java.util.Random;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import net.arcanesanctuary.Configuration.ConfNode;
+import net.arcanesanctuary.Configuration.Conf;
 
 public class Util {
 	Random rand;
@@ -19,30 +19,27 @@ public class Util {
 		arrayL2 = new ArrayList<String>();
 	}
 	
-	public void addConfNodes(ConfNode rootNode) {	
+	public void addConfs(Conf rootNode) {	
 		populateArray(arrayL1);
 		populateAttributes(arrayL2);
-		
-		//ConfNode rootNode = new ConfNode("root", "The root node", null);
-		//ConfNode rootNode = cn;
 		
 		for(int i = 0; i < random(1, 15); i++) {
 			// Select randomly from the array
 			String animal = arrayL1.get(random(0, arrayL1.size() - 1));
-			ConfNode cn = new ConfNode("Companion", null, "");
-			ConfNode cnType = new ConfNode("Type", null, animal);
-			cn.add(cnType);
+			Conf cn = new Conf("Companion", null, "");
+			Conf cnType = new Conf("Type", null, animal);
+			cn.appendChild(cnType);
 						
 			// Add 1-3 bonuses at random
 			for(int j = 0; j < random(0, 3); j++) {
 				String bonusStr = arrayL2.get(random(0, arrayL2.size() - 1));
 				
-				ConfNode bonus = new ConfNode("Bonus", "Provides a bonus to", bonusStr);
-				cn.add(bonus);				
+				Conf bonus = new Conf("Bonus", "Provides a bonus to", bonusStr);
+				cn.appendChild(bonus);				
 			}
 			
 			// Add ConfData to the root
-			rootNode.add(cn);
+			rootNode.appendChild(cn);
 		}
 		
 		//return rootNode;
