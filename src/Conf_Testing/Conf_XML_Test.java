@@ -7,7 +7,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-
 import net.arcanesanctuary.Configuration.Conf;
 import net.arcanesanctuary.Configuration.PhoneNumber;
 
@@ -22,12 +21,15 @@ public class Conf_XML_Test {
 			
 			Conf root = (Conf) unmarshaller.unmarshal(fileName);	
 			
-			root.setName("User");
+			root.setVariable("User");
 			root.setDesc("Enter your username");
 			root.setValue("test.user");
 			
 			Util u = new Util();
 			u.addConfs(root);
+			
+			//String bonus = root.get("Bonus");
+			System.out.println(root.get("Bonus").getValue());
 					
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -36,7 +38,7 @@ public class Conf_XML_Test {
 			marshaller.marshal(root, fileName);
 			
 		} catch (Exception e) {
-			System.out.format("Error %n %s", e.getStackTrace());
+			System.out.format("Error %s%n %s", e, e.getStackTrace());
 		}
 	}
 }
