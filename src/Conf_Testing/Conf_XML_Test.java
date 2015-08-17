@@ -8,7 +8,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import net.arcanesanctuary.Configuration.Conf;
-import net.arcanesanctuary.Configuration.PhoneNumber;
 
 public class Conf_XML_Test {
 	public static void main(String[] args) {
@@ -21,15 +20,15 @@ public class Conf_XML_Test {
 			
 			Conf root = (Conf) unmarshaller.unmarshal(fileName);	
 			
-			root.setVariable("User");
+			root.setVar("User");
 			root.setDesc("Enter your username");
-			root.setValue("test.user");
+			root.setVal("test.user");
 			
 			Util u = new Util();
 			u.addConfs(root);
 			
 			//String bonus = root.get("Bonus");
-			System.out.println(root.get("Bonus").getValue());
+			System.out.println(root.get("Bonus").getVal());
 					
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
