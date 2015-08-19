@@ -1,6 +1,7 @@
 package Conf_Testing;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,17 +19,32 @@ public class Conf_XML_Test {
 			
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			
-			Conf root = (Conf) unmarshaller.unmarshal(fileName);	
+			Conf root = new Conf();
+			
+			if(fileName.exists()) {
+				root = (Conf) unmarshaller.unmarshal(fileName);
+			}			
 			
 			root.setVar("User");
 			root.setDesc("Enter your username");
 			root.setVal("test.user");
 			
-			Util u = new Util();
-			u.addConfs(root);
+			//System.out.print(root.contains("Bonus"));
 			
-			//String bonus = root.get("Bonus");
-			System.out.println(root.get("Bonus").getVal());
+			// Add new Children
+			//root.newChild().setVar("new");
+			//root.appendChild(new Conf("Test", null, null));
+			
+			// Delete Children
+			//root.del("New Child");
+			
+			// Prompt User for input 
+			root.prompt(true, new String[] { "Bonus" });
+												
+			Util u = new Util();
+			//u.addConfs(root);
+			
+			//System.out.println(root.get("Bonus").getVal());
 					
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -37,7 +53,8 @@ public class Conf_XML_Test {
 			marshaller.marshal(root, fileName);
 			
 		} catch (Exception e) {
-			System.out.format("Error %s%n %s", e, e.getStackTrace());
+			System.out.format("Error %s%n", e);
+			e.printStackTrace();
 		}
 	}
 }
