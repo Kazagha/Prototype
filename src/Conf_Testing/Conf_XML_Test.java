@@ -13,42 +13,59 @@ import net.arcanesanctuary.Configuration.Conf;
 public class Conf_XML_Test {
 	public static void main(String[] args) {
 		
-		File fileName = new File("xml_test.xml");
+		File fileName = new File("settings.xml");
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Conf.class);
 			
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			
 			Conf root = new Conf();
-			
+							
 			if(fileName.exists()) {
+				// Load the file if it exists
 				root = (Conf) unmarshaller.unmarshal(fileName);
-			}			
+			} else {
+				// Otherwise create the file
+				fileName.createNewFile();
+				
+				root = new Conf("Settings", "Server Settings", null);
+				root.appendChildren(new String[] { "Username", "Server"});
+				root.appendChild(new Conf("Environment", "Input environment", null));
+			}
 			
-			root.setVar("User");
-			root.setDesc("Enter your username");
-			root.setVal("test.user");
+			// Add Children Nodes
+			root.appendChildren(new String[] { "Input", "Input" });
+			root.appendChild().setVar("Input");
+			root.appendChild(new Conf("InputDesc", "Prompt with description", null));
 			
-			//System.out.print(root.contains("Bonus"));
+			// Edit Children nodes
+			root.getNode("Input").setDesc("Prompt the user for input");
 			
-			// Add new Children
-			//root.newChild().setVar("new");
-			//root.appendChild(new Conf("Test", null, null));
+			// Prompt for specific variables
+			root.prompt(true, new String[] { "Input" });
+			// Prompt for all null variables
+			root.prompt(true);
 			
-			// Delete Children
-			//root.del("New Child");
+			// Fetch information
+			String conn = 
+					  root.get("Server") 
+					+ "-"  
+					+ root.get("Environment");
+			System.out.format("%s%n", conn);
 			
-			// Prompt User for input 
-			root.prompt(true, new String[] { "Bonus" });
-												
-			Util u = new Util();
-			//u.addConfs(root);
+			// Delete the specified child
+			root.removeChild("InputDesc");
+			// Delete all children that match the specified variable
+			root.removeAllChildren(new String[] { "Input" });
 			
-			//System.out.println(root.get("Bonus").getVal());
+			// Null the value of the specified variable
+			root.setNulls(new String[] { "Environment" } );
 					
+			// Prepare the marshaller
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
+			// Print to console then save to file
 			marshaller.marshal(root, System.out);
 			marshaller.marshal(root, fileName);
 			
