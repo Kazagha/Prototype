@@ -14,13 +14,14 @@ public class Conf_XML_Test {
 	public static void main(String[] args) {
 		
 		File fileName = new File("settings.xml");
+		
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Conf.class);
 			
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			
 			Conf root = new Conf();
-							
+						
 			if(fileName.exists()) {
 				// Load the file if it exists
 				root = (Conf) unmarshaller.unmarshal(fileName);
@@ -32,7 +33,7 @@ public class Conf_XML_Test {
 				root.appendChildren(new String[] { "Username", "Server"});
 				root.appendChild(new Conf("Environment", "Input environment", null));
 			}
-			
+						
 			// Add Children Nodes
 			root.appendChildren(new String[] { "Input", "Input" });
 			root.appendChild().setVar("Input");
@@ -56,11 +57,11 @@ public class Conf_XML_Test {
 			// Delete the specified child
 			root.removeChild("InputDesc");
 			// Delete all children that match the specified variable
-			root.removeAllChildren(new String[] { "Input" });
+			root.removeChildren(new String[] { "Input" });
 			
 			// Null the value of the specified variable
-			root.setNulls(new String[] { "Environment" } );
-					
+			root.setNullValues(new String[] { "Environment" } );
+						
 			// Prepare the marshaller
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
