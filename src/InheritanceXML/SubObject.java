@@ -13,4 +13,14 @@ public class SubObject extends BaseObject {
 	}
 	
 	public SubObject() {}
+	
+	public int getNumber()
+	{
+		return this.number;
+	}
+	
+	public void setNumber(int i)
+	{
+		this.number = i;
+	}
 }
