@@ -11,4 +11,6 @@ public class SubObject extends BaseObject {
 		super(name);
 		this.number = num;
 	}
+	
+	public SubObject() {}
 }
