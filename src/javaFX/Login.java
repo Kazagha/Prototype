@@ -1,13 +1,18 @@
 package javaFX;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -38,7 +43,8 @@ public class Login extends Application {
 		Text sceneTitle = new Text("Welcome");
 		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		grid.add(sceneTitle, 0, 1, 2, 1);
-		
+				
+		// Create Labels and Text Fields		
 		Label userName = new Label("User Name:");
 		grid.add(userName, 0, 2);
 		
@@ -50,6 +56,29 @@ public class Login extends Application {
 		
 		PasswordField passTextField = new PasswordField();
 		grid.add(passTextField, 1, 3);
+		
+		// Add error text
+		final Text actionTarget = new Text();
+		grid.add(actionTarget, 1, 6);		
+		
+		// Create Buttons
+		Button button = new Button("Sign in");		
+		// Add the button to the bottom right of the HBox component 
+		HBox hbButton = new HBox(10);
+		hbButton.setAlignment(Pos.BOTTOM_RIGHT);
+		hbButton.getChildren().add(button);
+		// Add the HBox to the grid
+		grid.add(hbButton, 1, 4);
+		
+		button.setOnAction(new EventHandler<ActionEvent>() 
+			{			
+			@Override
+			public void handle(ActionEvent evt) 
+			{
+				actionTarget.setFill(Color.FIREBRICK);
+				actionTarget.setText("Sign in button pressed");				
+			}
+		});
 		
 		// Create the scene
 		Scene scene = new Scene(grid, 300, 275);
