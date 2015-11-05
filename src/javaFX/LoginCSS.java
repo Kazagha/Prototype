@@ -78,7 +78,7 @@ public class LoginCSS extends Application {
 			@Override
 			public void handle(ActionEvent evt) 
 			{
-				actionTarget.setFill(Color.FIREBRICK);				
+				actionTarget.setText("Sign in button pressed");			
 			}
 		});
 		
