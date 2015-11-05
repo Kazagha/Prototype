@@ -2,6 +2,7 @@ package javaFX;
 
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -53,8 +54,15 @@ public class ColorfulCircles extends Application {
 		colors.heightProperty().bind(scene.heightProperty());
 				
 		// Add components to the root group
-		root.getChildren().add(circles);
-		root.getChildren().add(colors);
+		//root.getChildren().add(colors);
+		//root.getChildren().add(circles);
+		
+		// Blend
+		Group blendModeGroup = 
+				new Group(new Group(new Rectangle(scene.getWidth(), scene.getHeight(),
+				        Color.BLACK), circles), colors);
+		colors.setBlendMode(BlendMode.OVERLAY);
+		root.getChildren().add(blendModeGroup);
 		
 		// Add blur effect to circles
 		circles.setEffect(new BoxBlur(10, 10, 3));		
