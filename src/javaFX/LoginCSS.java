@@ -41,7 +41,8 @@ public class LoginCSS extends Application {
 		
 		// Create the welcome text in position 0, 1
 		Text sceneTitle = new Text("Welcome");
-		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		// Set ID access for CSS style sheet
+		sceneTitle.setId("welcome-text");
 		grid.add(sceneTitle, 0, 1, 2, 1);
 				
 		// Create Labels and Text Fields		
@@ -59,6 +60,8 @@ public class LoginCSS extends Application {
 		
 		// Add error text
 		final Text actionTarget = new Text();
+		// Set ID access for CSS style sheet
+		actionTarget.setId("actiontarget");
 		grid.add(actionTarget, 1, 6);		
 		
 		// Create Buttons
@@ -75,8 +78,7 @@ public class LoginCSS extends Application {
 			@Override
 			public void handle(ActionEvent evt) 
 			{
-				actionTarget.setFill(Color.FIREBRICK);
-				actionTarget.setText("Sign in button pressed");				
+				actionTarget.setFill(Color.FIREBRICK);				
 			}
 		});
 		
