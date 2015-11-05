@@ -83,6 +83,9 @@ public class LoginCSS extends Application {
 		// Create the scene
 		Scene scene = new Scene(grid, 300, 275);
 		
+		scene.getStylesheets().add(
+				LoginCSS.class.getResource("Login.css").toExternalForm());
+		
 		// Add Scene and display
 		primaryStage.setScene(scene);
 		primaryStage.show();
