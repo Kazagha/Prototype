@@ -1,5 +1,10 @@
 package javaFX;
 
+import static java.lang.Math.random;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.effect.BlendMode;
@@ -13,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class ColorfulCircles extends Application {
 
@@ -57,12 +63,29 @@ public class ColorfulCircles extends Application {
 		//root.getChildren().add(colors);
 		//root.getChildren().add(circles);
 		
-		// Blend
+		// Blend Group
 		Group blendModeGroup = 
-				new Group(new Group(new Rectangle(scene.getWidth(), scene.getHeight(),
-				        Color.BLACK), circles), colors);
+				new Group(
+						new Group(
+								new Rectangle(scene.getWidth(), scene.getHeight(), Color.BLACK), circles),
+						colors);				
 		colors.setBlendMode(BlendMode.OVERLAY);
 		root.getChildren().add(blendModeGroup);
+		
+		// Setup time frame to move the circles		
+		Timeline timeline = new Timeline();
+		for (Node circle : circles.getChildren())
+		{
+			timeline.getKeyFrames().addAll(
+					new KeyFrame(Duration.ZERO, // At time zero
+							new KeyValue(circle.translateXProperty(), random() * 800),
+							new KeyValue(circle.translateYProperty(), random() * 600)),
+					new KeyFrame(Duration.seconds(40), // 40 second duration
+							new KeyValue(circle.translateXProperty(), random() * 800),
+							new KeyValue(circle.translateYProperty(), random() * 600)));			
+		}
+		// Begin the time frame
+		timeline.play();
 		
 		// Add blur effect to circles
 		circles.setEffect(new BoxBlur(10, 10, 3));		
