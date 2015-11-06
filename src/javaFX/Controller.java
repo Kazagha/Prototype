@@ -19,6 +19,6 @@ public class Controller {
 		View v = new View();
 		Controller c = new Controller(v); 
 		
-		v.launch(LoginCSS.class);	
+		v.launch(View.class);	
 	}	
 }
