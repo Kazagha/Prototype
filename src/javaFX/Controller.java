@@ -3,8 +3,7 @@ package javaFX;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 public class Controller extends Application 
@@ -17,7 +16,9 @@ public class Controller extends Application
 		// Create the model
 		count = 0;
 		// Create the view
-		view = new View();		
+		view = new View();
+		// Wire up event handler
+		view.hookUpEvents(this);
 	}
 	
 	public static void main(String[] args) throws Exception
@@ -37,6 +38,7 @@ public class Controller extends Application
 	@Override
 	public void handle(Event evt) 
 	{
-		System.out.format("Event%n");
+		Node source = (Node) evt.getSource();
+		System.out.format("Event%n%s%n", source.toString() );
 	}	
 }
