@@ -1,5 +1,8 @@
 package javaFX;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,6 +40,12 @@ public class View  {
 		grid.setGridLinesVisible(true);
 		
 		scene = new Scene(grid, 300, 125);
+	}
+	
+	public void hookUpEvents(EventHandler<Event> handler)
+	{
+		buttonA.addEventHandler(ActionEvent.ANY, handler);
+		buttonB.addEventHandler(ActionEvent.ANY, handler);
 	}
 	
 	public Scene getScene()
