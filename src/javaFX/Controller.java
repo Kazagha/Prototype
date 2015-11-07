@@ -1,6 +1,7 @@
 package javaFX;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -38,7 +39,12 @@ public class Controller extends Application
 	@Override
 	public void handle(Event evt) 
 	{
-		Node source = (Node) evt.getSource();
-		System.out.format("Event%n%s%n", source.toString() );
+		if (evt.getEventType() == ActionEvent.ANY) 
+		{
+			Node source = (Node) evt.getSource();
+			System.out.format("Event%n%s%n", source.toString() );
+			
+			view.setAttempts(++count);
+		}
 	}	
 }
