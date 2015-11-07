@@ -35,7 +35,7 @@ public class View  {
 		grid.add(new Text("Select:"), 0, 0, 2, 1);
 		grid.add(buttonA, 0, 1);
 		grid.add(buttonB, 1, 1);
-		grid.add(attempts, 1, 0, 2, 1);
+		grid.add(attempts, 0, 2, 2, 1);
 			
 		grid.setGridLinesVisible(true);
 		
