@@ -4,16 +4,22 @@ import java.awt.Insets;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
@@ -41,23 +47,52 @@ public class Bookmark extends Application {
 		grid.add(buttonB, 0, 0);
 		grid.add(buttonA, 0, 1);
 		
-		StackPane tabGlass = new StackPane();
+		//StackPane tabGlass = new StackPane();
 		//tabGlass.setStyle("-fx-background-color: rgba(100, 0, 100, 0.5); -fx-background-radius: 10;");
 		
 		VBox tabs = new VBox();
 		tabs.setSpacing(8);
 		tabs.setAlignment(Pos.CENTER);
 		
+		Stop[] stops = new Stop[] { new Stop(1, Color.web("Black")), new Stop(0.5, Color.web("Black", .25)), new Stop(0, Color.TRANSPARENT) };
+		LinearGradient gradient = new LinearGradient(0.0f, 0.5f, 1.0f, 0.5f, true, CycleMethod.NO_CYCLE, stops);
+		//	Stop[] {
+		//		new Stop(0, Color.web("Black"),
+		//		new Stop(1, Color.web("Red")),
+		//});
+	
 		for (int i = 0; i < 10; i++)
 		{
+			StackPane tabPane = new StackPane();
+		
 			Label l = new Label(" Menu " + i + " ");			
-			l.setStyle("-fx-background-color: rgba(100, 100, 0, 0.75);");
-			tabs.getChildren().add(l);
+			l.setStyle("-fx-background-color: rgba(200, 200, 200, 1.0);");
+			
+			Rectangle rect = new Rectangle(15, 17);
+			rect.setFill(gradient);
+
+			//rect.setStyle("-fx-background-color: rgba(100, 0, 0, 1.0);");
+			
+			Group blendGroup =
+					new Group ( l, rect );
+			blendGroup.setBlendMode(BlendMode.OVERLAY);
+			
+			
+						
+			//tabPane.getChildren().addAll(l, rect);
+			tabPane.getChildren().add(l);
+			tabPane.getChildren().add(rect);
+			tabPane.setAlignment(Pos.CENTER_RIGHT);
+			//tabPane.getChildren().add(blendGroup);
+			tabs.getChildren().add(tabPane);
 		}
+
+		
+		grid.add(new Rectangle(20, 20, gradient), 3, 3);
 			
 		StackPane glass = new StackPane();
 		
-		glass.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5); -fx-background-radius: 10;");
+		glass.setStyle("-fx-background-color: rgba(0, 100, 100, 1); -fx-background-radius: 10;");
 		
 		Rectangle shadow = new Rectangle(glass.getWidth(), glass.getHeight());
 		shadow.widthProperty().bind(glass.widthProperty());
