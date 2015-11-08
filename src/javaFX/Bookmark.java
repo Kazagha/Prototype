@@ -1,5 +1,7 @@
 package javaFX;
 
+import java.awt.Insets;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -41,22 +45,35 @@ public class Bookmark extends Application {
 		//tabGlass.setStyle("-fx-background-color: rgba(100, 0, 100, 0.5); -fx-background-radius: 10;");
 		
 		VBox tabs = new VBox();
-		tabs.setSpacing(5);
+		tabs.setSpacing(8);
 		tabs.setAlignment(Pos.CENTER);
 		
 		for (int i = 0; i < 10; i++)
 		{
-			Label l = new Label("Menu" + i);
+			Label l = new Label(" Menu " + i + " ");			
 			l.setStyle("-fx-background-color: rgba(100, 100, 0, 0.75);");
 			tabs.getChildren().add(l);
 		}
 			
 		StackPane glass = new StackPane();
+		
+		glass.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5); -fx-background-radius: 10;");
+		
+		Rectangle shadow = new Rectangle(glass.getWidth(), glass.getHeight());
+		shadow.widthProperty().bind(glass.widthProperty());
+		shadow.heightProperty().bind(glass.heightProperty());
+		
+		//shadow.setStrokeType(StrokeType.OUTSIDE);
+		//shadow.setStroke(Color.web("Blue", .25));
+		//shadow.setStrokeWidth(4);
+		shadow.setStyle("-fx-background-color: rgba(100, 100, 0, 1);");		
+		//glass.getChildren().add(shadow);
+		
 		glass.getChildren().add(grid);
-		glass.setStyle("-fx-background-color: rgba(0, 100, 100, 0.75); -fx-background-radius: 10;");
+		
 	   
 		StackPane main = new StackPane();
-		main.setStyle("-fx-background-color: rgba(100, 0, 100, 0.0); -fx-background-radius: 10;");
+		main.setStyle("-fx-background-color: rgba(100, 0, 100, 0.0); -fx-background-radius: 10; ");
 		
 		BorderPane borderPane = new BorderPane();
 		main.getChildren().add(borderPane);   
