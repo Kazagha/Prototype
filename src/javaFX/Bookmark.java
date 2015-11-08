@@ -54,7 +54,7 @@ public class Bookmark extends Application {
 		tabs.setSpacing(8);
 		tabs.setAlignment(Pos.CENTER);
 		
-		Stop[] stops = new Stop[] { new Stop(1, Color.web("Black")), new Stop(0.5, Color.web("Black", .25)), new Stop(0, Color.TRANSPARENT) };
+		Stop[] stops = new Stop[] { new Stop(1, Color.web("Black", .85)), new Stop(0.5, Color.web("Black", .25)), new Stop(0, Color.TRANSPARENT) };
 		LinearGradient gradient = new LinearGradient(0.0f, 0.5f, 1.0f, 0.5f, true, CycleMethod.NO_CYCLE, stops);
 		//	Stop[] {
 		//		new Stop(0, Color.web("Black"),
@@ -65,22 +65,29 @@ public class Bookmark extends Application {
 		{
 			StackPane tabPane = new StackPane();
 		
-			Label l = new Label(" Menu " + i + " ");			
-			l.setStyle("-fx-background-color: rgba(200, 200, 200, 1.0);");
+			Label l = new Label(" Menu " + i + "   ");			
+			l.setStyle("-fx-background-color: rgba(200, 200, 200, 1.0); -fx-border-color: Brown; -fx-border-width: 1");
 			
-			Rectangle rect = new Rectangle(15, 17);
+			Rectangle stroke = new Rectangle(16, 17);
+			stroke.widthProperty().bind(l.widthProperty());
+			stroke.setStroke(Color.RED);
+			stroke.setStrokeWidth(1);
+			stroke.setStrokeType(StrokeType.INSIDE);
+			
+			Rectangle rect = new Rectangle(17, 17);
 			rect.setFill(gradient);
 
 			//rect.setStyle("-fx-background-color: rgba(100, 0, 0, 1.0);");
 			
 			Group blendGroup =
-					new Group ( l, rect );
+					new Group ( l, stroke );
 			blendGroup.setBlendMode(BlendMode.OVERLAY);
 			
 			
 						
 			//tabPane.getChildren().addAll(l, rect);
-			tabPane.getChildren().add(l);
+			tabPane.getChildren().add(l);			
+			//tabPane.getChildren().add(stroke);
 			tabPane.getChildren().add(rect);
 			tabPane.setAlignment(Pos.CENTER_RIGHT);
 			//tabPane.getChildren().add(blendGroup);
@@ -92,7 +99,7 @@ public class Bookmark extends Application {
 			
 		StackPane glass = new StackPane();
 		
-		glass.setStyle("-fx-background-color: rgba(0, 100, 100, 1); -fx-background-radius: 10;");
+		glass.setStyle("-fx-background-color: rgba(0, 100, 100, 1); -fx-background-radius: 10;" );
 		
 		Rectangle shadow = new Rectangle(glass.getWidth(), glass.getHeight());
 		shadow.widthProperty().bind(glass.widthProperty());
