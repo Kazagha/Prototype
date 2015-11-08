@@ -51,8 +51,10 @@ public class Bookmark extends Application {
 		//tabGlass.setStyle("-fx-background-color: rgba(100, 0, 100, 0.5); -fx-background-radius: 10;");
 		
 		VBox tabs = new VBox();
-		tabs.setSpacing(8);
+		tabs.setSpacing(0);
 		tabs.setAlignment(Pos.CENTER);
+		
+
 		
 		Stop[] stops = new Stop[] { new Stop(1, Color.web("Black", .85)), new Stop(0.5, Color.web("Black", .25)), new Stop(0, Color.TRANSPARENT) };
 		LinearGradient gradient = new LinearGradient(0.0f, 0.5f, 1.0f, 0.5f, true, CycleMethod.NO_CYCLE, stops);
@@ -66,22 +68,24 @@ public class Bookmark extends Application {
 			StackPane tabPane = new StackPane();
 		
 			Label l = new Label(" Menu " + i + "   ");			
-			l.setStyle("-fx-background-color: rgba(200, 200, 200, 1.0); -fx-border-color: Brown; -fx-border-width: 1");
+			l.setStyle("-fx-background-color: rgba(200, 200, 200, 1.0); -fx-border-color: Grey; -fx-border-width: 1");
 			
-			Rectangle stroke = new Rectangle(16, 17);
+			/*
+			Rectangle stroke = new Rectangle(16, 16);
 			stroke.widthProperty().bind(l.widthProperty());
 			stroke.setStroke(Color.RED);
 			stroke.setStrokeWidth(1);
 			stroke.setStrokeType(StrokeType.INSIDE);
+			*/
 			
-			Rectangle rect = new Rectangle(17, 17);
+			Rectangle rect = new Rectangle(17, 23);
 			rect.setFill(gradient);
 
 			//rect.setStyle("-fx-background-color: rgba(100, 0, 0, 1.0);");
 			
-			Group blendGroup =
-					new Group ( l, stroke );
-			blendGroup.setBlendMode(BlendMode.OVERLAY);
+			//Group blendGroup =
+			//		new Group ( l, stroke );
+			//blendGroup.setBlendMode(BlendMode.OVERLAY);
 			
 			
 						
@@ -101,15 +105,10 @@ public class Bookmark extends Application {
 		
 		glass.setStyle("-fx-background-color: rgba(0, 100, 100, 1); -fx-background-radius: 10;" );
 		
-		Rectangle shadow = new Rectangle(glass.getWidth(), glass.getHeight());
-		shadow.widthProperty().bind(glass.widthProperty());
-		shadow.heightProperty().bind(glass.heightProperty());
-		
-		//shadow.setStrokeType(StrokeType.OUTSIDE);
-		//shadow.setStroke(Color.web("Blue", .25));
-		//shadow.setStrokeWidth(4);
-		shadow.setStyle("-fx-background-color: rgba(100, 100, 0, 1);");		
-		//glass.getChildren().add(shadow);
+		Rectangle shadow = new Rectangle(tabs.getWidth(), tabs.getHeight());
+		shadow.widthProperty().bind(tabs.widthProperty());
+		shadow.heightProperty().bind(tabs.heightProperty());
+		shadow.setFill(gradient);
 		
 		glass.getChildren().add(grid);
 		
