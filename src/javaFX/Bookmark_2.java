@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -22,6 +23,8 @@ public class Bookmark_2 extends Application {
 		StackPane stack = new StackPane();		
 		BorderPane main = new BorderPane();
 		stack.getChildren().add(main);
+		
+		main.setTop(new Label("Test"));
 		
 		GridPane center = new  GridPane();
 		center.setVgap(10);
@@ -38,6 +41,16 @@ public class Bookmark_2 extends Application {
 		center.add(new Label("Name:"), 0, 1);
 		center.add(new TextField(), 1, 1);
 		center.add(new Button("Enter"), 0, 2);
+		
+		Rectangle dropShadow = new Rectangle(main.getWidth(), main.getHeight());
+		dropShadow.widthProperty().bind(center.widthProperty());
+		dropShadow.heightProperty().bind(center.heightProperty());
+		dropShadow.setStyle(
+				"  -fx-fill: rgba(0, 100, 100, 1); "
+				+ "-fx-insets: 50;"
+				+ "-fx-effect: dropshadow(gaussian, red, 30 , 0, 0, 0);"
+				);
+		stack.getChildren().add(dropShadow);
 		
 		for(int i = 0; i < 10; i++)
 		{
