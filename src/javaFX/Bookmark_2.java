@@ -1,5 +1,7 @@
 package javaFX;
 
+import java.util.Observable;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,14 +19,19 @@ import javafx.stage.StageStyle;
 
 public class Bookmark_2 extends Application {
 
+	int shadowSize = 30; 
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception 
 	{
-		StackPane stack = new StackPane();		
+		StackPane stack = new StackPane();
+		stack.setStyle("-fx-background-color: rgba(0, 100, 100, 0.0);");
 		BorderPane main = new BorderPane();
 		stack.getChildren().add(main);
 		
 		main.setTop(new Label("Test"));
+		main.setBottom(new Label("Test"));
+		main.setRight(new Label(" "));
 		
 		GridPane center = new  GridPane();
 		center.setVgap(10);
@@ -36,21 +43,37 @@ public class Bookmark_2 extends Application {
 		tabs.setAlignment(Pos.CENTER);
 		main.setCenter(center);
 		main.setLeft(tabs);
+		//main.setStyle("-fx-background-color: rgba(100, 0, 100, 0.0);");
 		
 		center.add(new Label("Select User Name"), 0, 0, 2, 1);
 		center.add(new Label("Name:"), 0, 1);
 		center.add(new TextField(), 1, 1);
 		center.add(new Button("Enter"), 0, 2);
+		center.setStyle("-fx-background-color: rgba(100, 0, 100, 0.5);");
 		
-		Rectangle dropShadow = new Rectangle(main.getWidth(), main.getHeight());
-		dropShadow.widthProperty().bind(center.widthProperty());
-		dropShadow.heightProperty().bind(center.heightProperty());
+		Rectangle dropShadow = new Rectangle(center.getWidth(), center.getHeight());
+		//dropShadow.widthProperty().bind(center.widthProperty());
+		//dropShadow.heightProperty().bind(center.heightProperty());
 		dropShadow.setStyle(
 				"  -fx-fill: rgba(0, 100, 100, 1); "
-				+ "-fx-insets: 50;"
-				+ "-fx-effect: dropshadow(gaussian, red, 30 , 0, 0, 0);"
+				//+ "-fx-insets: 50;"
+				+ "-fx-effect: dropshadow(gaussian, black, 40 , 0, 0, 0);"
 				);
-		stack.getChildren().add(dropShadow);
+		
+		center.layoutBoundsProperty().addListener(
+				(observable, oldBounds, newBounds) -> {
+					dropShadow.relocate(
+							newBounds.getMinX() + main.getLeft().getLayoutBounds().getWidth() ,
+							newBounds.getMinY() + main.getTop().getLayoutBounds().getHeight() 
+							);
+					dropShadow.setWidth(newBounds.getWidth()+ 10);
+					dropShadow.setHeight(newBounds.getHeight() + 10);					
+				}
+			);		
+		
+		stack.getChildren().add(0, dropShadow);
+		
+		System.out.print(stack.getChildren());
 		
 		for(int i = 0; i < 10; i++)
 		{
@@ -62,7 +85,7 @@ public class Bookmark_2 extends Application {
 		Scene scene = new Scene(stack, 350, 350, Color.TRANSPARENT);
 		
 		primaryStage.setScene(scene);
-		primaryStage.initStyle(StageStyle.TRANSPARENT);
+		//primaryStage.initStyle(StageStyle.TRANSPARENT);
 		primaryStage.show();
 	}
 	
