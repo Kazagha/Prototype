@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 public class LoginCSS extends Application {
 
+	Label loginCount = new Label();
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception 
 	{
@@ -82,6 +84,8 @@ public class LoginCSS extends Application {
 			}
 		});
 		
+		grid.add(loginCount, 1, 7);
+		
 		// Create the scene
 		Scene scene = new Scene(grid, 300, 275);
 		
@@ -93,6 +97,11 @@ public class LoginCSS extends Application {
 		primaryStage.show();
 	}
 	
+	public void setAttempts(int i)
+	{
+		loginCount.setText("Login Count: " + i);
+	}
+		
 	public static void main(String[] args)
 	{
 		launch(args);
