@@ -34,6 +34,7 @@ public class Door extends Application {
 		// Alignment for background 
 		StackPane stack = new StackPane();		
 		stack.setAlignment(Pos.TOP_LEFT);
+		Scene scene = new Scene(stack, 350, 350);
 
 		// Alignment for GUI components
 		StackPane center = new StackPane();
@@ -51,32 +52,41 @@ public class Door extends Application {
 		ImageView background = new ImageView();
 		Image image = new Image(Door.class.getResourceAsStream("wood.jpg"));
 		background.setImage(image);
-		background.setClip(rect);
+		//background.setClip(rect);
 		// Set the background on the 'bottom' layer
 		stack.getChildren().add(0, background);
 		
 		// Translate rectangle		
 		Group doors = new Group(); 
-		doors.getChildren().addAll(new Rectangle(), new Rectangle());
+		doors.getChildren().addAll(new Rectangle());
 		
 		Timeline timeline = new Timeline();		
 		for (Node n : doors.getChildren()) 
 		{
 			Rectangle r = (Rectangle) n;
-			r.widthProperty().bind(rect.widthProperty().divide(2));
-			r.heightProperty().bind(rect.heightProperty());		
+			
+			r.widthProperty().bind(center.widthProperty().divide(2));
+			r.heightProperty().bind(center.heightProperty());
 			r.setStyle(" -fx-fill: rgb(0, 100, 100, 0.25) ");
+			
+			r.setTranslateX(-50);
+			r.setTranslateY(0);
+			
+			//r.setClip(rect);
+			
+			System.out.format("Width: %f" , center.getWidth());
 			
 			timeline.getKeyFrames().addAll(
 					new KeyFrame(Duration.ZERO,
-						new KeyValue(r.translateXProperty(), frame),
-						new KeyValue(r.translateYProperty(), frame)),
+						new KeyValue(r.translateXProperty(), - 100),
+						new KeyValue(r.translateYProperty(), 0)),
 					new KeyFrame(Duration.seconds(3),
-							new KeyValue(r.translateXProperty(), frame + 100),
-							new KeyValue(r.translateYProperty(), frame + 100))
+						new KeyValue(r.translateXProperty(), 0),
+						new KeyValue(r.translateYProperty(), 0))
 					);
 		}
 		
+		doors.getChildren().get(0).setClip(rect);		
 		stack.getChildren().addAll(doors.getChildren());
 				
 		GridPane grid = new GridPane();		
@@ -99,9 +109,7 @@ public class Door extends Application {
 				timeline.play();
 			}
 		});
-		grid.add(signInButton, 1, 2, 2, 1);
-				
-		Scene scene = new Scene(stack, 350, 350);
+		grid.add(signInButton, 1, 2, 2, 1);		
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
