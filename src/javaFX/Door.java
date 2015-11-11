@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -32,16 +33,19 @@ public class Door extends Application {
 		stack.getChildren().add(center);
 		
 		Rectangle rect = new Rectangle(50, 50);
-		//rect.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
-		//rect.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));		
+		rect.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
+		rect.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));		
 		rect.setStyle(" -fx-fill: Transparent; -fx-stroke: blue ");
-		stack.getChildren().add(rect);
+		//stack.getChildren().add(rect);
 		
 		//AnchorPane anchor = new AnchorPane();
 		//anchor.setStyle("-fx-fill: green");
-		ImageView background = new ImageView("file:paper.jpg");
+		ImageView background = new ImageView();
+		Image image = new Image(Door.class.getResourceAsStream("wood.jpg"));
+		background.setImage(image);
+		background.setClip(rect);
 		//background.setClip(center);
-		//stack.getChildren().add(background);
+		stack.getChildren().add(0, background);
 		//stack.getChildren().add(anchor);
 		
 		//-fx-background-image: url("paper.jpg");
