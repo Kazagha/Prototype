@@ -24,25 +24,28 @@ public class Door extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		StackPane stack = new StackPane();
+		// Alignment for background 
+		StackPane stack = new StackPane();		
 		stack.setAlignment(Pos.TOP_LEFT);
 
+		// Alignment for GUI components
 		StackPane center = new StackPane();
 		center.setAlignment(Pos.CENTER);
-		//center.setStyle("-fx-border-color: red; -fx-border-insets: 10;");
 		stack.getChildren().add(center);
 		
+		// Create clipping Rectangle and bind to the window size
 		Rectangle rect = new Rectangle(50, 50);
 		rect.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
 		rect.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));
 		rect.layoutXProperty().bind(stack.layoutXProperty().add(frame));
-		rect.layoutYProperty().bind(stack.layoutYProperty().add(frame));	
-		//rect.setStyle(" -fx-fill: Transparent; -fx-stroke: blue; ");
+		rect.layoutYProperty().bind(stack.layoutYProperty().add(frame));
 			
+		// Load the background image
 		ImageView background = new ImageView();
 		Image image = new Image(Door.class.getResourceAsStream("wood.jpg"));
-		background.setImage(image);		
+		background.setImage(image);
 		background.setClip(rect);
+		// Set the background on the 'bottom' layer
 		stack.getChildren().add(0, background);
 		
 		GridPane grid = new GridPane();		
