@@ -1,5 +1,8 @@
 package javaFX;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class Door extends Application {
 	
@@ -51,6 +55,30 @@ public class Door extends Application {
 		// Set the background on the 'bottom' layer
 		stack.getChildren().add(0, background);
 		
+		// Translate rectangle		
+		Group doors = new Group(); 
+		doors.getChildren().addAll(new Rectangle(), new Rectangle());
+		
+		Timeline timeline = new Timeline();		
+		for (Node n : doors.getChildren()) 
+		{
+			Rectangle r = (Rectangle) n;
+			r.widthProperty().bind(rect.widthProperty().divide(2));
+			r.heightProperty().bind(rect.heightProperty());		
+			r.setStyle(" -fx-fill: rgb(0, 100, 100, 0.25) ");
+			
+			timeline.getKeyFrames().addAll(
+					new KeyFrame(Duration.ZERO,
+						new KeyValue(r.translateXProperty(), frame),
+						new KeyValue(r.translateYProperty(), frame)),
+					new KeyFrame(Duration.seconds(3),
+							new KeyValue(r.translateXProperty(), frame + 100),
+							new KeyValue(r.translateYProperty(), frame + 100))
+					);
+		}
+		
+		stack.getChildren().addAll(doors.getChildren());
+				
 		GridPane grid = new GridPane();		
 		grid.setVgap(5);
 		grid.setHgap(5);
@@ -67,7 +95,8 @@ public class Door extends Application {
 			
 			@Override
 			public void handle(ActionEvent evt) {
-				System.out.format("Button Pressed%n");				
+				System.out.format("Button Pressed%n");
+				timeline.play();
 			}
 		});
 		grid.add(signInButton, 1, 2, 2, 1);
