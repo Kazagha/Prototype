@@ -1,10 +1,13 @@
 package javaFX;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -59,6 +62,16 @@ public class Door extends Application {
 		grid.add(new Label("Pass:"), 0, 1);
 		grid.add(new TextField(), 1, 1);
 		
+		Button signInButton = new Button("Sign in");
+		signInButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent evt) {
+				System.out.format("Button Pressed%n");				
+			}
+		});
+		grid.add(signInButton, 1, 2, 2, 1);
+				
 		Scene scene = new Scene(stack, 350, 350);
 		
 		primaryStage.setScene(scene);
