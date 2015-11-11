@@ -29,26 +29,21 @@ public class Door extends Application {
 
 		StackPane center = new StackPane();
 		center.setAlignment(Pos.CENTER);
-		center.setStyle("-fx-border-color: red; -fx-border-insets: 10;");
+		//center.setStyle("-fx-border-color: red; -fx-border-insets: 10;");
 		stack.getChildren().add(center);
 		
 		Rectangle rect = new Rectangle(50, 50);
 		rect.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
-		rect.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));		
-		rect.setStyle(" -fx-fill: Transparent; -fx-stroke: blue ");
-		//stack.getChildren().add(rect);
-		
-		//AnchorPane anchor = new AnchorPane();
-		//anchor.setStyle("-fx-fill: green");
+		rect.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));
+		rect.layoutXProperty().bind(stack.layoutXProperty().add(frame));
+		rect.layoutYProperty().bind(stack.layoutYProperty().add(frame));	
+		//rect.setStyle(" -fx-fill: Transparent; -fx-stroke: blue; ");
+			
 		ImageView background = new ImageView();
 		Image image = new Image(Door.class.getResourceAsStream("wood.jpg"));
-		background.setImage(image);
+		background.setImage(image);		
 		background.setClip(rect);
-		//background.setClip(center);
 		stack.getChildren().add(0, background);
-		//stack.getChildren().add(anchor);
-		
-		//-fx-background-image: url("paper.jpg");
 		
 		GridPane grid = new GridPane();		
 		grid.setVgap(5);
