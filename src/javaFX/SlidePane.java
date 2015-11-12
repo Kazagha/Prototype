@@ -28,6 +28,9 @@ public class SlidePane extends Application {
 	
 	private StackPane lPane;
 	private StackPane rPane;
+	private Rectangle rClip;
+	private Rectangle lClip;
+	
 	private Timeline timelineLClose;
 	private Timeline timelineRClose;
 	private Timeline timelineLOpen;
@@ -77,6 +80,19 @@ public class SlidePane extends Application {
 	
 	private void setAnimation()
 	{
+		// Initially hide the Panes
+		lClip = new Rectangle();
+		lClip.setHeight(bounds.getHeight());
+		lClip.setWidth(50);
+		lClip.translateXProperty().set(bounds.getWidth());		
+		lPane.setClip(lClip);
+		
+		rClip = new Rectangle();
+		rClip.setHeight(bounds.getHeight());
+		rClip.setWidth(0);
+		rClip.translateXProperty().set(bounds.getWidth());
+		rPane.setClip(rClip);
+		
 		// Set the starting position
 		lPane.translateXProperty().set(-bounds.getWidth());
 		rPane.translateXProperty().set(bounds.getWidth());
