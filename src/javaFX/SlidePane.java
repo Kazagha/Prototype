@@ -30,6 +30,8 @@ public class SlidePane extends Application {
 	private StackPane rPane;
 	private Timeline timelineLClose;
 	private Timeline timelineRClose;
+	private Timeline timelineLOpen;
+	private Timeline timelineROpen;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception 
@@ -81,7 +83,10 @@ public class SlidePane extends Application {
 		
 		timelineLClose = new Timeline();
 		timelineRClose = new Timeline();
+		timelineLOpen  = new Timeline();
+		timelineROpen  = new Timeline();
 		
+		// Close the left hand side panel
 		timelineLClose.setCycleCount(1);
 		timelineLClose.setAutoReverse(true);
 		final KeyValue kvLClose1;
@@ -90,6 +95,7 @@ public class SlidePane extends Application {
 		final KeyFrame kfLClose = new KeyFrame(Duration.millis(500), kvLClose3);
 		timelineLClose.getKeyFrames().add(kfLClose);
 		
+		// Close the right hand side panel
 		timelineRClose.setCycleCount(1);
 		timelineRClose.setAutoReverse(true);
 		final KeyValue kvRClose1;
@@ -97,6 +103,20 @@ public class SlidePane extends Application {
 		final KeyValue kvRClose3 = new KeyValue(rPane.translateXProperty(), 0);
 		final KeyFrame kfRClose = new KeyFrame(Duration.millis(500), kvRClose3);
 		timelineRClose.getKeyFrames().add(kfRClose);
+		
+		// Open the left hand side panel
+		timelineLOpen.setCycleCount(1);
+		timelineLOpen.setAutoReverse(true);
+		final KeyValue kvLOpen1 = new KeyValue(lPane.translateXProperty(), -bounds.getWidth());
+		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(500), kvLOpen1);
+		timelineLOpen.getKeyFrames().add(kfLOpen);
+		
+		// Open the right hand side panel
+		timelineROpen.setCycleCount(1);
+		timelineROpen.setAutoReverse(true);
+		final KeyValue kvROpen1 = new KeyValue(rPane.translateXProperty(), bounds.getWidth());
+		final KeyFrame kfROpen = new KeyFrame(Duration.millis(500), kvROpen1);
+		timelineROpen.getKeyFrames().add(kfROpen);
 	}
 	
 	public HBox controlPane()
@@ -115,6 +135,14 @@ public class SlidePane extends Application {
 				timelineLClose.play();
 				timelineRClose.play();
 			}			
+		});
+		
+		openButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				timelineLOpen.play();
+				timelineROpen.play();
+			}
 		});
 		
 		hb.getChildren().addAll(openButton, closeButton);
