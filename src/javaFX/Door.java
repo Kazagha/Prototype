@@ -68,10 +68,7 @@ public class Door extends Application {
 			
 			r.widthProperty().bind(center.widthProperty().divide(2));
 			r.heightProperty().bind(center.heightProperty());
-			r.setStyle(" -fx-fill: rgb(0, 100, 100, 0.25) ");
-			
-			r.setTranslateX(-50);
-			r.setTranslateY(0);
+			r.setStyle(" -fx-fill: rgb(0, 200, 100, 0.25) ");
 			
 			r.setBlendMode(BlendMode.SRC_ATOP);
 			
@@ -79,7 +76,7 @@ public class Door extends Application {
 			
 			timeline.getKeyFrames().addAll(
 					new KeyFrame(Duration.ZERO,
-						new KeyValue(r.translateXProperty(), - 100),
+						new KeyValue(r.translateXProperty(), - 500),
 						new KeyValue(r.translateYProperty(), 0)),
 					new KeyFrame(Duration.seconds(3),
 						new KeyValue(r.translateXProperty(), 0),
@@ -88,20 +85,21 @@ public class Door extends Application {
 		}
 		
 		// Manually Set Clipping
-		Rectangle clip = new Rectangle(50, 50);
-		clip.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
-		clip.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));
-		clip.layoutXProperty().bind(stack.layoutXProperty().add(frame));
-		clip.layoutYProperty().bind(stack.layoutYProperty().add(frame));
-		clip.setStyle(" -fx-fill: rgb(0, 100, 100, 0.5) ");
+		Rectangle clip = new Rectangle();
+		clip.widthProperty().bind(stack.widthProperty().add(- frame * 2));
+		clip.heightProperty().bind(stack.heightProperty().add(- frame * 2));
+
+		clip.setStyle(" -fx-fill: rgb(200, 0, 100, 0.5) ");
 		//transitionGroup.getChildren().get(0).setClip(clip);
 		
 		Group blend = new Group();
-		blend.setBlendMode(BlendMode.SRC_OVER);
+		blend.setTranslateX(frame);
+		blend.setTranslateY(frame);
+		
+		//blend.setBlendMode(BlendMode.SRC_OVER);
 		blend.getChildren().add(clip);
 		blend.getChildren().addAll(transitionGroup.getChildren());
-		
-		
+				
 		stack.getChildren().add(blend);		
 		//stack.getChildren().addAll(transitionGroup.getChildren());
 				
@@ -125,7 +123,7 @@ public class Door extends Application {
 				timeline.play();
 			}
 		});
-		grid.add(signInButton, 1, 2, 2, 1);		
+		grid.add(signInButton, 2, 2, 2, 1);		
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
