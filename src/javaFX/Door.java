@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -42,26 +43,26 @@ public class Door extends Application {
 		stack.getChildren().add(center);
 		
 		// Create clipping Rectangle and bind to the window size
-		Rectangle rect = new Rectangle(50, 50);
-		rect.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
-		rect.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));
-		rect.layoutXProperty().bind(stack.layoutXProperty().add(frame));
-		rect.layoutYProperty().bind(stack.layoutYProperty().add(frame));
+		Rectangle rectClip = new Rectangle(50, 50);
+		rectClip.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
+		rectClip.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));
+		rectClip.layoutXProperty().bind(stack.layoutXProperty().add(frame));
+		rectClip.layoutYProperty().bind(stack.layoutYProperty().add(frame));
 			
 		// Load the background image
 		ImageView background = new ImageView();
 		Image image = new Image(Door.class.getResourceAsStream("wood.jpg"));
 		background.setImage(image);
-		//background.setClip(rect);
+		background.setClip(rectClip);
 		// Set the background on the 'bottom' layer
 		stack.getChildren().add(0, background);
 		
 		// Translate rectangle		
-		Group doors = new Group(); 
-		doors.getChildren().addAll(new Rectangle());
+		Group transitionGroup = new Group(); 
+		transitionGroup.getChildren().addAll(new Rectangle(), new Rectangle());
 		
 		Timeline timeline = new Timeline();		
-		for (Node n : doors.getChildren()) 
+		for (Node n : transitionGroup.getChildren()) 
 		{
 			Rectangle r = (Rectangle) n;
 			
@@ -72,7 +73,7 @@ public class Door extends Application {
 			r.setTranslateX(-50);
 			r.setTranslateY(0);
 			
-			//r.setClip(rect);
+			r.setBlendMode(BlendMode.SRC_ATOP);
 			
 			System.out.format("Width: %f" , center.getWidth());
 			
@@ -86,8 +87,23 @@ public class Door extends Application {
 					);
 		}
 		
-		doors.getChildren().get(0).setClip(rect);		
-		stack.getChildren().addAll(doors.getChildren());
+		// Manually Set Clipping
+		Rectangle clip = new Rectangle(50, 50);
+		clip.widthProperty().bind(stack.widthProperty().add(- (frame * 2)));
+		clip.heightProperty().bind(stack.heightProperty().add(- (frame * 2)));
+		clip.layoutXProperty().bind(stack.layoutXProperty().add(frame));
+		clip.layoutYProperty().bind(stack.layoutYProperty().add(frame));
+		clip.setStyle(" -fx-fill: rgb(0, 100, 100, 0.5) ");
+		//transitionGroup.getChildren().get(0).setClip(clip);
+		
+		Group blend = new Group();
+		blend.setBlendMode(BlendMode.SRC_OVER);
+		blend.getChildren().add(clip);
+		blend.getChildren().addAll(transitionGroup.getChildren());
+		
+		
+		stack.getChildren().add(blend);		
+		//stack.getChildren().addAll(transitionGroup.getChildren());
 				
 		GridPane grid = new GridPane();		
 		grid.setVgap(5);
