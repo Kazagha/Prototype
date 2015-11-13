@@ -83,7 +83,7 @@ public class SlidePane extends Application {
 		// Initially hide the Panes
 		lClip = new Rectangle();
 		lClip.setHeight(bounds.getHeight());
-		lClip.setWidth(50);
+		lClip.setWidth(0);
 		lClip.translateXProperty().set(bounds.getWidth());		
 		lPane.setClip(lClip);
 		
@@ -105,10 +105,10 @@ public class SlidePane extends Application {
 		// Close the left hand side panel
 		timelineLClose.setCycleCount(1);
 		timelineLClose.setAutoReverse(true);
-		final KeyValue kvLClose1;
-		final KeyValue kvLClose2;
+		final KeyValue kvLClose1 = new KeyValue(lClip.widthProperty(), bounds.getWidth());
+		final KeyValue kvLClose2 = new KeyValue(lClip.translateXProperty(), 0);
 		final KeyValue kvLClose3 = new KeyValue(lPane.translateXProperty(), 0);
-		final KeyFrame kfLClose = new KeyFrame(Duration.millis(500), kvLClose3);
+		final KeyFrame kfLClose = new KeyFrame(Duration.millis(1000), kvLClose1, kvLClose2, kvLClose3);
 		timelineLClose.getKeyFrames().add(kfLClose);
 		
 		// Close the right hand side panel
@@ -117,7 +117,7 @@ public class SlidePane extends Application {
 		final KeyValue kvRClose1;
 		final KeyValue kvRClose2;
 		final KeyValue kvRClose3 = new KeyValue(rPane.translateXProperty(), 0);
-		final KeyFrame kfRClose = new KeyFrame(Duration.millis(500), kvRClose3);
+		final KeyFrame kfRClose = new KeyFrame(Duration.millis(1000), kvRClose3);
 		timelineRClose.getKeyFrames().add(kfRClose);
 		
 		// Open the left hand side panel
