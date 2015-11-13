@@ -68,7 +68,7 @@ public class SlidePane extends Application {
 		rPane.getChildren().add(new Rectangle(bounds.getWidth(), bounds.getHeight(), Color.ORANGE));
 		rPane.getChildren().add(new Label("Right Pane"));
 		
-		container.getChildren().addAll(lPane, rPane);
+		container.getChildren().addAll(lPane);//, rPane);
 		
 		// Setup the panel animation
 		setAnimation();
@@ -123,15 +123,17 @@ public class SlidePane extends Application {
 		// Open the left hand side panel
 		timelineLOpen.setCycleCount(1);
 		timelineLOpen.setAutoReverse(true);
-		final KeyValue kvLOpen1 = new KeyValue(lPane.translateXProperty(), -bounds.getWidth());
-		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(500), kvLOpen1);
+		final KeyValue kvLOpen1 = new KeyValue(lClip.widthProperty(), 0);
+		final KeyValue kvLOpen2 = new KeyValue(lClip.translateXProperty(), bounds.getWidth());
+		final KeyValue kvLOpen3 = new KeyValue(lPane.translateXProperty(), -bounds.getWidth());
+		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(1000), kvLOpen1, kvLOpen2, kvLOpen3);
 		timelineLOpen.getKeyFrames().add(kfLOpen);
 		
 		// Open the right hand side panel
 		timelineROpen.setCycleCount(1);
 		timelineROpen.setAutoReverse(true);
 		final KeyValue kvROpen1 = new KeyValue(rPane.translateXProperty(), bounds.getWidth());
-		final KeyFrame kfROpen = new KeyFrame(Duration.millis(500), kvROpen1);
+		final KeyFrame kfROpen = new KeyFrame(Duration.millis(1000), kvROpen1);
 		timelineROpen.getKeyFrames().add(kfROpen);
 	}
 	
