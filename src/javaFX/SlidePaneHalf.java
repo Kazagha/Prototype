@@ -61,6 +61,7 @@ public class SlidePaneHalf extends Application {
 		container.setStyle("-fx-border-color: GREEN");
 		
 		lPane = new StackPane();
+		lPane.setAlignment(Pos.CENTER_LEFT);
 		lPane.getChildren().add(new Rectangle(bounds.getWidth() / 2, bounds.getHeight(), Color.GREEN));
 		lPane.getChildren().add(new Label("Left Pane"));
 		
@@ -84,7 +85,7 @@ public class SlidePaneHalf extends Application {
 		lClip = new Rectangle();
 		lClip.setHeight(bounds.getHeight());
 		lClip.setWidth(0);
-		lClip.translateXProperty().set(bounds.getWidth());		
+		lClip.translateXProperty().set(bounds.getWidth() / 2);		
 		//lPane.setClip(lClip);
 		
 		rClip = new Rectangle();
@@ -94,8 +95,10 @@ public class SlidePaneHalf extends Application {
 		//rPane.setClip(rClip);
 		
 		// Set the starting position
-		lPane.translateXProperty().set(-bounds.getWidth() /2 * 1.5);
+		lPane.translateXProperty().set(-bounds.getWidth() / 2);
 		rPane.translateXProperty().set(bounds.getWidth() / 2 * 1.5);
+		
+		lPane.setStyle("-fx-border-color: RED");
 				
 		timelineLClose = new Timeline();
 		timelineRClose = new Timeline();
@@ -105,9 +108,9 @@ public class SlidePaneHalf extends Application {
 		// Close the left hand side panel
 		timelineLClose.setCycleCount(1);
 		timelineLClose.setAutoReverse(true);
-		final KeyValue kvLClose1 = new KeyValue(lClip.widthProperty(), bounds.getWidth());
+		final KeyValue kvLClose1 = new KeyValue(lClip.widthProperty(), bounds.getWidth() / 2);
 		final KeyValue kvLClose2 = new KeyValue(lClip.translateXProperty(), 0);
-		final KeyValue kvLClose3 = new KeyValue(lPane.translateXProperty(), - bounds.getWidth() / 4);
+		final KeyValue kvLClose3 = new KeyValue(lPane.translateXProperty(), 0);
 		final KeyFrame kfLClose = new KeyFrame(Duration.millis(2000), kvLClose1, kvLClose2, kvLClose3);
 		timelineLClose.getKeyFrames().add(kfLClose);
 		
@@ -154,6 +157,7 @@ public class SlidePaneHalf extends Application {
 			public void handle(ActionEvent event) {
 				timelineLClose.play();
 				timelineRClose.play();
+				System.out.format("Pane Width %f%n Clip Width %f%n",lPane.getWidth(), lClip.getWidth());
 			}			
 		});
 		
