@@ -58,14 +58,17 @@ public class SlidePaneHalf extends Application {
 		StackPane container = new StackPane();
 		container.setPrefHeight(250);
 		container.setPrefSize(bounds.getWidth(), bounds.getHeight());
-		container.setStyle("-fx-border-color: GREEN");
+		container.setStyle("-fx-border-color: DIMGREY");
 		
 		lPane = new StackPane();
 		lPane.setAlignment(Pos.CENTER_LEFT);
+		//lPane.setStyle("-fx-border-color: BLUE");
 		lPane.getChildren().add(new Rectangle(bounds.getWidth() / 2, bounds.getHeight(), Color.GREEN));
 		lPane.getChildren().add(new Label("Left Pane"));
 		
 		rPane = new StackPane();
+		rPane.setAlignment(Pos.CENTER_RIGHT);
+		//rPane.setStyle("-fx-border-color: RED");
 		rPane.getChildren().add(new Rectangle(bounds.getWidth() / 2, bounds.getHeight(), Color.ORANGE));
 		rPane.getChildren().add(new Label("Right Pane"));
 		
@@ -96,10 +99,8 @@ public class SlidePaneHalf extends Application {
 		
 		// Set the starting position
 		lPane.translateXProperty().set(-bounds.getWidth() / 2);
-		rPane.translateXProperty().set(bounds.getWidth() / 2 * 1.5);
-		
-		lPane.setStyle("-fx-border-color: RED");
-				
+		rPane.translateXProperty().set(bounds.getWidth() / 2);
+						
 		timelineLClose = new Timeline();
 		timelineRClose = new Timeline();
 		timelineLOpen  = new Timeline();
@@ -119,7 +120,7 @@ public class SlidePaneHalf extends Application {
 		timelineRClose.setAutoReverse(true);
 		final KeyValue kvRClose1 = new KeyValue(rClip.widthProperty(), bounds.getWidth());
 		final KeyValue kvRClose2 = new KeyValue(rClip.translateXProperty(), 0);
-		final KeyValue kvRClose3 = new KeyValue(rPane.translateXProperty(), bounds.getWidth() / 4);
+		final KeyValue kvRClose3 = new KeyValue(rPane.translateXProperty(), 0);
 		final KeyFrame kfRClose = new KeyFrame(Duration.millis(2000), kvRClose1, kvRClose2, kvRClose3);
 		timelineRClose.getKeyFrames().add(kfRClose);
 		
@@ -128,7 +129,7 @@ public class SlidePaneHalf extends Application {
 		timelineLOpen.setAutoReverse(true);
 		final KeyValue kvLOpen1 = new KeyValue(lClip.widthProperty(), 0);
 		final KeyValue kvLOpen2 = new KeyValue(lClip.translateXProperty(), bounds.getWidth());
-		final KeyValue kvLOpen3 = new KeyValue(lPane.translateXProperty(), -bounds.getWidth() / 2 * 1.5);
+		final KeyValue kvLOpen3 = new KeyValue(lPane.translateXProperty(), -bounds.getWidth() / 2);
 		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(2000), kvLOpen1, kvLOpen2, kvLOpen3);
 		timelineLOpen.getKeyFrames().add(kfLOpen);
 		
@@ -137,7 +138,7 @@ public class SlidePaneHalf extends Application {
 		timelineROpen.setAutoReverse(true);
 		final KeyValue kvROpen1 = new KeyValue(rClip.widthProperty(), 0);
 		final KeyValue kvROpen2 = new KeyValue(rClip.translateXProperty(), 0);
-		final KeyValue kvROpen3 = new KeyValue(rPane.translateXProperty(), bounds.getWidth() / 2 * 1.5);		
+		final KeyValue kvROpen3 = new KeyValue(rPane.translateXProperty(), bounds.getWidth() / 2);		
 		final KeyFrame kfROpen = new KeyFrame(Duration.millis(2000), kvROpen1, kvROpen2, kvROpen3);
 		timelineROpen.getKeyFrames().add(kfROpen);
 	}
