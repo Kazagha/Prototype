@@ -25,6 +25,7 @@ import javafx.util.Duration;
 public class SlidePaneHalf extends Application {
 	
 	private Rectangle bounds = new Rectangle(150, 150, 300, 300);
+	private int bounce = 5;
 	
 	private StackPane lPane;
 	private StackPane rPane;
@@ -89,13 +90,13 @@ public class SlidePaneHalf extends Application {
 		lClip.setHeight(bounds.getHeight());
 		lClip.setWidth(0);
 		lClip.translateXProperty().set(bounds.getWidth() / 2);		
-		//lPane.setClip(lClip);
+		lPane.setClip(lClip);
 		
 		rClip = new Rectangle();
 		rClip.setHeight(bounds.getHeight());
 		rClip.setWidth(0);
-		rClip.translateXProperty().set(0);
-		//rPane.setClip(rClip);
+		rClip.translateXProperty().set(bounds.getWidth() / 2);
+		rPane.setClip(rClip);
 		
 		// Set the starting position
 		lPane.translateXProperty().set(-bounds.getWidth() / 2);
@@ -105,6 +106,29 @@ public class SlidePaneHalf extends Application {
 		timelineRClose = new Timeline();
 		timelineLOpen  = new Timeline();
 		timelineROpen  = new Timeline();
+		Timeline timelineBounce = new Timeline();
+		
+		timelineBounce.setCycleCount(2);
+		timelineBounce.setAutoReverse(true);				
+		final KeyValue kvB1a = new KeyValue(lClip.widthProperty(), (bounds.getWidth() / 2) - bounce);
+		final KeyValue kvB2a = new KeyValue(lClip.translateXProperty(),  bounce);
+		final KeyValue kvB3a = new KeyValue(lPane.translateXProperty(), -bounce);
+		
+		final KeyValue kvB1b = new KeyValue(rClip.widthProperty(), (bounds.getWidth() / 2) - bounce);		
+		final KeyValue kvB2b = new KeyValue(rClip.translateXProperty(), (bounds.getWidth() / 2));
+		final KeyValue kvB3b = new KeyValue(rPane.translateXProperty(),  bounce);
+		
+		final KeyFrame kfB = new KeyFrame(Duration.millis(1000), kvB1a, kvB1b, kvB2a, kvB2b, kvB3a, kvB3b);
+		timelineBounce.getKeyFrames().add(kfB);
+		
+		EventHandler<ActionEvent> onFinished = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) 
+			{
+				timelineBounce.play();
+			}
+		};
 		
 		// Close the left hand side panel
 		timelineLClose.setCycleCount(1);
@@ -112,35 +136,35 @@ public class SlidePaneHalf extends Application {
 		final KeyValue kvLClose1 = new KeyValue(lClip.widthProperty(), bounds.getWidth() / 2);
 		final KeyValue kvLClose2 = new KeyValue(lClip.translateXProperty(), 0);
 		final KeyValue kvLClose3 = new KeyValue(lPane.translateXProperty(), 0);
-		final KeyFrame kfLClose = new KeyFrame(Duration.millis(2000), kvLClose1, kvLClose2, kvLClose3);
+		final KeyFrame kfLClose = new KeyFrame(Duration.millis(400), onFinished, kvLClose1, kvLClose2, kvLClose3);
 		timelineLClose.getKeyFrames().add(kfLClose);
 		
 		// Close the right hand side panel
 		timelineRClose.setCycleCount(1);
 		timelineRClose.setAutoReverse(true);
-		final KeyValue kvRClose1 = new KeyValue(rClip.widthProperty(), bounds.getWidth());
-		final KeyValue kvRClose2 = new KeyValue(rClip.translateXProperty(), 0);
+		final KeyValue kvRClose1 = new KeyValue(rClip.widthProperty(), bounds.getWidth() / 2);
+		final KeyValue kvRClose2 = new KeyValue(rClip.translateXProperty(), bounds.getWidth() / 2);
 		final KeyValue kvRClose3 = new KeyValue(rPane.translateXProperty(), 0);
-		final KeyFrame kfRClose = new KeyFrame(Duration.millis(2000), kvRClose1, kvRClose2, kvRClose3);
+		final KeyFrame kfRClose = new KeyFrame(Duration.millis(400), kvRClose1, kvRClose2, kvRClose3);
 		timelineRClose.getKeyFrames().add(kfRClose);
 		
 		// Open the left hand side panel
 		timelineLOpen.setCycleCount(1);
 		timelineLOpen.setAutoReverse(true);
 		final KeyValue kvLOpen1 = new KeyValue(lClip.widthProperty(), 0);
-		final KeyValue kvLOpen2 = new KeyValue(lClip.translateXProperty(), bounds.getWidth());
+		final KeyValue kvLOpen2 = new KeyValue(lClip.translateXProperty(), bounds.getWidth() / 2);
 		final KeyValue kvLOpen3 = new KeyValue(lPane.translateXProperty(), -bounds.getWidth() / 2);
-		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(2000), kvLOpen1, kvLOpen2, kvLOpen3);
+		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(400), kvLOpen1, kvLOpen2, kvLOpen3);
 		timelineLOpen.getKeyFrames().add(kfLOpen);
 		
 		// Open the right hand side panel
 		timelineROpen.setCycleCount(1);
 		timelineROpen.setAutoReverse(true);
 		final KeyValue kvROpen1 = new KeyValue(rClip.widthProperty(), 0);
-		final KeyValue kvROpen2 = new KeyValue(rClip.translateXProperty(), 0);
+		final KeyValue kvROpen2 = new KeyValue(rClip.translateXProperty(), bounds.getWidth() / 2);
 		final KeyValue kvROpen3 = new KeyValue(rPane.translateXProperty(), bounds.getWidth() / 2);		
-		final KeyFrame kfROpen = new KeyFrame(Duration.millis(2000), kvROpen1, kvROpen2, kvROpen3);
-		timelineROpen.getKeyFrames().add(kfROpen);
+		final KeyFrame kfROpen = new KeyFrame(Duration.millis(400), kvROpen1, kvROpen2, kvROpen3);
+		timelineROpen.getKeyFrames().add(kfROpen);	
 	}
 	
 	public HBox controlPane()
@@ -157,8 +181,7 @@ public class SlidePaneHalf extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				timelineLClose.play();
-				timelineRClose.play();
-				System.out.format("Pane Width %f%n Clip Width %f%n",lPane.getWidth(), lClip.getWidth());
+				timelineRClose.play();				
 			}			
 		});
 		
