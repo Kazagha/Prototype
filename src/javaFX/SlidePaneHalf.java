@@ -25,7 +25,7 @@ import javafx.util.Duration;
 public class SlidePaneHalf extends Application {
 	
 	private Rectangle bounds = new Rectangle(150, 150, 300, 300);
-	private int bounce = 5;
+	private int bounce = 4;
 	
 	private StackPane lPane;
 	private StackPane rPane;
@@ -115,7 +115,7 @@ public class SlidePaneHalf extends Application {
 		final KeyValue kvL1 = new KeyValue(lClip.widthProperty(), (bounds.getWidth() / 2) - bounce);
 		final KeyValue kvL2 = new KeyValue(lClip.translateXProperty(),  bounce);
 		final KeyValue kvL3 = new KeyValue(lPane.translateXProperty(), -bounce);		
-		final KeyFrame kfL = new KeyFrame(Duration.millis(100), kvL1, kvL2, kvL3);
+		final KeyFrame kfL = new KeyFrame(Duration.millis(50), kvL1, kvL2, kvL3);
 		timelineLBounce.getKeyFrames().add(kfL);
 		
 		timelineRBounce.setCycleCount(2);
@@ -169,7 +169,7 @@ public class SlidePaneHalf extends Application {
 		final KeyValue kvLOpen1 = new KeyValue(lClip.widthProperty(), 0);
 		final KeyValue kvLOpen2 = new KeyValue(lClip.translateXProperty(), bounds.getWidth() / 2);
 		final KeyValue kvLOpen3 = new KeyValue(lPane.translateXProperty(), -bounds.getWidth() / 2);
-		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(400), kvLOpen1, kvLOpen2, kvLOpen3);
+		final KeyFrame kfLOpen = new KeyFrame(Duration.millis(350), kvLOpen1, kvLOpen2, kvLOpen3);
 		timelineLOpen.getKeyFrames().add(kfLOpen);
 		
 		// Open the right hand side panel
@@ -178,7 +178,7 @@ public class SlidePaneHalf extends Application {
 		final KeyValue kvROpen1 = new KeyValue(rClip.widthProperty(), 0);
 		final KeyValue kvROpen2 = new KeyValue(rClip.translateXProperty(), bounds.getWidth() / 2);
 		final KeyValue kvROpen3 = new KeyValue(rPane.translateXProperty(), bounds.getWidth() / 2);		
-		final KeyFrame kfROpen = new KeyFrame(Duration.millis(400), kvROpen1, kvROpen2, kvROpen3);
+		final KeyFrame kfROpen = new KeyFrame(Duration.millis(350), kvROpen1, kvROpen2, kvROpen3);
 		timelineROpen.getKeyFrames().add(kfROpen);	
 	}
 	
