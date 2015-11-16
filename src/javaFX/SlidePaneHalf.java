@@ -106,27 +106,32 @@ public class SlidePaneHalf extends Application {
 		timelineRClose = new Timeline();
 		timelineLOpen  = new Timeline();
 		timelineROpen  = new Timeline();
-		Timeline timelineBounce = new Timeline();
+		Timeline timelineLBounce = new Timeline();
+		Timeline timelineRBounce = new Timeline();
 		
-		timelineBounce.setCycleCount(2);
-		timelineBounce.setAutoReverse(true);				
+		timelineLBounce.setCycleCount(2);
+		timelineLBounce.setAutoReverse(true);				
 		final KeyValue kvB1a = new KeyValue(lClip.widthProperty(), (bounds.getWidth() / 2) - bounce);
 		final KeyValue kvB2a = new KeyValue(lClip.translateXProperty(),  bounce);
-		final KeyValue kvB3a = new KeyValue(lPane.translateXProperty(), -bounce);
+		final KeyValue kvB3a = new KeyValue(lPane.translateXProperty(), -bounce);		
+		final KeyFrame kfL = new KeyFrame(Duration.millis(100), kvB1a, kvB2a, kvB3a);
+		timelineLBounce.getKeyFrames().add(kfL);
 		
-		final KeyValue kvB1b = new KeyValue(rClip.widthProperty(), (bounds.getWidth() / 2) - bounce);		
-		final KeyValue kvB2b = new KeyValue(rClip.translateXProperty(), (bounds.getWidth() / 2));
-		final KeyValue kvB3b = new KeyValue(rPane.translateXProperty(),  bounce);
-		
-		final KeyFrame kfB = new KeyFrame(Duration.millis(1000), kvB1a, kvB1b, kvB2a, kvB2b, kvB3a, kvB3b);
-		timelineBounce.getKeyFrames().add(kfB);
+		timelineRBounce.setCycleCount(2);
+		timelineRBounce.setAutoReverse(true);
+		final KeyValue kvR1 = new KeyValue(rClip.widthProperty(), (bounds.getWidth() / 2) - bounce);		
+		final KeyValue kvR2 = new KeyValue(rClip.translateXProperty(), (bounds.getWidth() / 2));
+		final KeyValue kvR3 = new KeyValue(rPane.translateXProperty(),  bounce);
+		final KeyFrame kfR = new KeyFrame(Duration.millis(100), kvR1, kvR2, kvR3);
+		timelineRBounce.getKeyFrames().add(kfR);
 		
 		EventHandler<ActionEvent> onFinished = new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) 
 			{
-				timelineBounce.play();
+				timelineLBounce.play();
+				timelineRBounce.play();
 			}
 		};
 		
