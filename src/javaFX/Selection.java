@@ -54,17 +54,36 @@ public class Selection extends Application {
 	
 	class ItemEventHandler implements EventHandler<MouseEvent>
 	{
+		Node prev = new Label();
+		Node selected = new Label();
 
 		@Override
 		public void handle(MouseEvent evt) 
-		{
+		{						
 			Node source = (Node) evt.getSource();
-
-			System.out.format("Event: %s%n", source);
-			source.setStyle("-fx-border-color: BLUE");
+			
+			if (evt.getEventType() == MouseEvent.MOUSE_CLICKED)
+			{		
+				if (source == selected)
+					return; 
+				
+				selected.setStyle("");				
+				source.setStyle("-fx-border-color: RED");
+				
+				selected = source;
+			} else if (evt.getEventType() == MouseEvent.MOUSE_ENTERED) {
+				if (source == selected || source == prev)
+					return;
+				
+				if (prev != selected)
+					prev.setStyle("");
+				
+				source.setStyle("-fx-border-color: BLUE");				
+				prev = source;
+			}
 		}	
 	}
-	
+
 	public static void main(String[] args)
 	{
 		launch(args);
