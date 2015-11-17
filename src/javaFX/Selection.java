@@ -1,10 +1,15 @@
 package javaFX;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -30,6 +35,8 @@ public class Selection extends Application {
 	
 	public void init(VBox root)
 	{
+		EventHandler handler = new ItemEventHandler();
+		
 		for (int i = 0; i < 10; i++)
 		{			
 			GridPane grid = new GridPane();
@@ -39,8 +46,23 @@ public class Selection extends Application {
 			p.setProgress(Math.random());
 			grid.add(p, 0, 1, 5, 1);
 			
+			grid.addEventHandler(MouseEvent.ANY, handler);
+						
 			root.getChildren().add(grid);
 		}
+	}
+	
+	class ItemEventHandler implements EventHandler<MouseEvent>
+	{
+
+		@Override
+		public void handle(MouseEvent evt) 
+		{
+			Node source = (Node) evt.getSource();
+
+			System.out.format("Event: %s%n", source);
+			source.setStyle("-fx-border-color: BLUE");
+		}	
 	}
 	
 	public static void main(String[] args)
