@@ -22,13 +22,15 @@ public class Selection extends Application {
 		VBox root = new VBox();
 		root.setAlignment(Pos.CENTER);
 		root.setSpacing(10);
-		
+				
 		init(root);
 		
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add(
+				Selection.class.getResource("Selection.css").toExternalForm());
 		primaryStage.setTitle("Selection Test");
 		primaryStage.setWidth(400);
-		primaryStage.setHeight(500);
+		primaryStage.setHeight(600);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -41,7 +43,6 @@ public class Selection extends Application {
 		{			
 			GridPane grid = new GridPane();
 			grid.setAlignment(Pos.CENTER);
-			grid.setStyle("-fx-border-color: GREY; -fx-border-width: 2");
 			grid.add(new Label("Stack " + i + " "), 0, 0, 2, 1);
 			ProgressBar p = new ProgressBar(100);
 			p.setProgress(Math.random());
@@ -68,8 +69,8 @@ public class Selection extends Application {
 				if (source == selected)
 					return; 
 				
-				selected.setStyle("-fx-border-color: GREY; -fx-border-width: 2");				
-				source.setStyle("-fx-border-color: GREY; -fx-border-width: 2; -fx-background-color: rgba(100, 0, 0, .5)");
+				selected.setId(null);
+				source.setId("selected");
 				
 				selected = source;
 			} else if (evt.getEventType() == MouseEvent.MOUSE_ENTERED) {
@@ -80,15 +81,15 @@ public class Selection extends Application {
 				if (source == selected)
 				{
 					if (source != prev)
-						prev.setStyle("-fx-border-color: GREY; -fx-border-width: 2");
+						prev.setId(null);
 					
 					return;
 				}	
 				
 				if (prev != selected)
-					prev.setStyle("-fx-border-color: GREY; -fx-border-width: 2");
+					prev.setId(null);
 				
-				source.setStyle("-fx-border-color: GREY; -fx-border-width: 2; -fx-border-style: DOTTED");				
+				source.setId("mouseOver");				
 				prev = source;
 			}
 		}	
