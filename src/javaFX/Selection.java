@@ -72,13 +72,22 @@ public class Selection extends Application {
 				
 				selected = source;
 			} else if (evt.getEventType() == MouseEvent.MOUSE_ENTERED) {
-				if (source == selected || source == prev)
+				if (source == prev)
 					return;
+				
+				if (source == selected)
+				{
+					if (source != prev)
+						prev.setStyle("");
+					
+					return;
+				}
+					
 				
 				if (prev != selected)
 					prev.setStyle("");
 				
-				source.setStyle("-fx-border-color: BLUE");				
+				source.setStyle("-fx-border-color: BLUE; -fx-border-style: DOTTED");				
 				prev = source;
 			}
 		}	
