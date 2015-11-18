@@ -41,6 +41,7 @@ public class Selection extends Application {
 		{			
 			GridPane grid = new GridPane();
 			grid.setAlignment(Pos.CENTER);
+			grid.setStyle("-fx-border-color: WHITE");
 			grid.add(new Label("Stack " + i + " "), 0, 0, 2, 1);
 			ProgressBar p = new ProgressBar(100);
 			p.setProgress(Math.random());
@@ -67,25 +68,25 @@ public class Selection extends Application {
 				if (source == selected)
 					return; 
 				
-				selected.setStyle("");				
+				selected.setStyle("-fx-border-color: WHITE");				
 				source.setStyle("-fx-border-color: RED");
 				
 				selected = source;
 			} else if (evt.getEventType() == MouseEvent.MOUSE_ENTERED) {
+				
 				if (source == prev)
 					return;
 				
 				if (source == selected)
 				{
 					if (source != prev)
-						prev.setStyle("");
+						prev.setStyle("-fx-border-color: WHITE");
 					
 					return;
-				}
-					
+				}	
 				
 				if (prev != selected)
-					prev.setStyle("");
+					prev.setStyle("-fx-border-color: WHITE");
 				
 				source.setStyle("-fx-border-color: BLUE; -fx-border-style: DOTTED");				
 				prev = source;
