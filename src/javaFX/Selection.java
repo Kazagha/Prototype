@@ -41,7 +41,7 @@ public class Selection extends Application {
 		{			
 			GridPane grid = new GridPane();
 			grid.setAlignment(Pos.CENTER);
-			grid.setStyle("-fx-border-color: WHITE");
+			grid.setStyle("-fx-border-color: GREY; -fx-border-width: 2");
 			grid.add(new Label("Stack " + i + " "), 0, 0, 2, 1);
 			ProgressBar p = new ProgressBar(100);
 			p.setProgress(Math.random());
@@ -68,8 +68,8 @@ public class Selection extends Application {
 				if (source == selected)
 					return; 
 				
-				selected.setStyle("-fx-border-color: WHITE");				
-				source.setStyle("-fx-border-color: RED");
+				selected.setStyle("-fx-border-color: GREY; -fx-border-width: 2");				
+				source.setStyle("-fx-border-color: GREY; -fx-border-width: 2; -fx-background-color: rgba(100, 0, 0, .5)");
 				
 				selected = source;
 			} else if (evt.getEventType() == MouseEvent.MOUSE_ENTERED) {
@@ -80,15 +80,15 @@ public class Selection extends Application {
 				if (source == selected)
 				{
 					if (source != prev)
-						prev.setStyle("-fx-border-color: WHITE");
+						prev.setStyle("-fx-border-color: GREY; -fx-border-width: 2");
 					
 					return;
 				}	
 				
 				if (prev != selected)
-					prev.setStyle("-fx-border-color: WHITE");
+					prev.setStyle("-fx-border-color: GREY; -fx-border-width: 2");
 				
-				source.setStyle("-fx-border-color: BLUE; -fx-border-style: DOTTED");				
+				source.setStyle("-fx-border-color: GREY; -fx-border-width: 2; -fx-border-style: DOTTED");				
 				prev = source;
 			}
 		}	
