@@ -43,10 +43,11 @@ public class Selection extends Application {
 		{			
 			GridPane grid = new GridPane();
 			grid.setAlignment(Pos.CENTER);
-			grid.add(new Label("Stack " + i + " "), 0, 0, 2, 1);
+			grid.add(new Label("Stack " + i + " "), 1, 0, 1, 1);
 			ProgressBar p = new ProgressBar(100);
+			p.setPrefWidth(350);
 			p.setProgress(Math.random());
-			grid.add(p, 0, 1, 5, 1);
+			grid.add(p, 0, 1, 3, 1);
 			
 			grid.addEventHandler(MouseEvent.ANY, handler);
 						
