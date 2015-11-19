@@ -42,14 +42,18 @@ public class Selection extends Application {
 		for (int i = 0; i < 10; i++)
 		{			
 			GridPane grid = new GridPane();
+			grid.addEventHandler(MouseEvent.ANY, handler);
 			grid.setAlignment(Pos.CENTER);
 			grid.add(new Label("Stack " + i + " "), 1, 0, 1, 1);
 			ProgressBar p = new ProgressBar(100);
 			p.setPrefWidth(350);
 			p.setProgress(Math.random());
-			grid.add(p, 0, 1, 3, 1);
 			
-			grid.addEventHandler(MouseEvent.ANY, handler);
+			// Progress Bar is not clickable by default
+			// Put the Progress Bar underneath the StackPane to accept clicks 
+			StackPane s = new StackPane();
+			s.getChildren().addAll(p, new StackPane());
+			grid.add(s, 0, 1, 3, 1);
 						
 			root.getChildren().add(grid);
 		}
@@ -64,6 +68,7 @@ public class Selection extends Application {
 		public void handle(MouseEvent evt) 
 		{						
 			Node source = (Node) evt.getSource();
+			Node target = (Node) evt.getTarget();
 			
 			if (evt.getEventType() == MouseEvent.MOUSE_CLICKED)
 			{		
