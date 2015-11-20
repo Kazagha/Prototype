@@ -78,7 +78,8 @@ public class Selection extends Application {
 			
 			if (evt.getEventType() == MouseEvent.MOUSE_CLICKED)
 			{		
-				System.out.format("Source: %s Target: %s%n", source.toString(), target.toString());
+				System.out.format("Get Index: %d%n", getIndex(source.getParent(), source));
+				
 				if (source == selected)
 					return; 
 				
@@ -108,14 +109,18 @@ public class Selection extends Application {
 		}	
 	}
 	
-	public int getIndex(Pane parent, Pane target)
+	public int getIndex(Node parent, Object target)
 	{
-		for (int i = 0; i < parent.getChildren().size(); i++)
+		if (parent instanceof Pane)
 		{
-			if (Objects.equals(parent.getChildren().get(i), target));
-				return i;
+			Pane pane = (Pane) parent;
+			for (int i = 0; i < pane.getChildren().size(); i++)
+			{
+				if (Objects.equals(pane.getChildren().get(i), target))
+					return i;
+			}
 		}
-		
+			
 		return -1;
 	}
 
