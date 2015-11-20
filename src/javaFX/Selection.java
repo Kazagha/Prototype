@@ -1,16 +1,22 @@
 package javaFX;
 
+import java.util.Objects;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -54,7 +60,7 @@ public class Selection extends Application {
 			StackPane s = new StackPane();
 			s.getChildren().addAll(p, new StackPane());
 			grid.add(s, 0, 1, 3, 1);
-						
+			
 			root.getChildren().add(grid);
 		}
 	}
@@ -72,6 +78,7 @@ public class Selection extends Application {
 			
 			if (evt.getEventType() == MouseEvent.MOUSE_CLICKED)
 			{		
+				System.out.format("Source: %s Target: %s%n", source.toString(), target.toString());
 				if (source == selected)
 					return; 
 				
@@ -99,6 +106,17 @@ public class Selection extends Application {
 				prev = source;
 			}
 		}	
+	}
+	
+	public int getIndex(Pane parent, Pane target)
+	{
+		for (int i = 0; i < parent.getChildren().size(); i++)
+		{
+			if (Objects.equals(parent.getChildren().get(i), target));
+				return i;
+		}
+		
+		return -1;
 	}
 
 	public static void main(String[] args)
