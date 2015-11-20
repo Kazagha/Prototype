@@ -79,6 +79,7 @@ public class Selection extends Application {
 			if (evt.getEventType() == MouseEvent.MOUSE_CLICKED)
 			{		
 				System.out.format("Get Index: %d%n", getIndex(source.getParent(), source));
+				System.out.format("Event at: %f, %f%n", evt.getSceneX(), evt.getSceneY());
 				
 				if (source == selected)
 					return; 
