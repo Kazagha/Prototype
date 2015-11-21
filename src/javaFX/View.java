@@ -16,10 +16,15 @@ public class View  {
 	public Scene scene;
 	private Button buttonA;
 	private Button buttonB;
+	private Button buttonC;
 	private Label attempts;
 	
-	public View()
+	private Controller controller;
+	
+	public View(Controller c)
 	{
+		controller = c;
+		
 		GridPane grid = new GridPane();		
 		grid.setAlignment(Pos.CENTER);
 		
@@ -30,11 +35,15 @@ public class View  {
 		
 		buttonA = new Button("Button A");
 		buttonB = new Button("Button B");
+		buttonC = new Button("Button C");
 		attempts = new Label();
+		
+		buttonC.setOnAction(ActionEvent -> controller.doAction(buttonA));
 		
 		grid.add(new Text("Select:"), 0, 0, 2, 1);
 		grid.add(buttonA, 0, 1);
 		grid.add(buttonB, 1, 1);
+		grid.add(buttonC, 2, 1);
 		grid.add(attempts, 0, 2, 2, 1);
 			
 		grid.setGridLinesVisible(true);
