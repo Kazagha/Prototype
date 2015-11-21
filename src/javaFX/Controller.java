@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Controller extends Application 
@@ -17,7 +18,7 @@ public class Controller extends Application
 		// Create the model
 		count = 0;
 		// Create the view
-		view = new View();
+		view = new View(this);
 		// Wire up event handler
 		view.hookUpEvents(this);
 	}
@@ -34,6 +35,14 @@ public class Controller extends Application
 		primaryStage.setScene(view.getScene());
 		//primaryStage.setScene(new Scene(new GridPane(), 250, 250));
 		primaryStage.show();		
+	}
+	
+	public void doAction(Object o)
+	{
+		System.out.format("Do Action on Objcet: %s%n", o.toString());
+		
+		if (o instanceof Button)
+			((Button) o).setText("Action Button");
 	}
 
 	@Override
