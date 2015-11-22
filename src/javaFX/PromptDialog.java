@@ -121,6 +121,28 @@ public class PromptDialog extends Application{
 			.filter(response -> response == ButtonType.OK)
 			.ifPresent(response -> System.out.format("Item Name: %s%n", item.itemName));		
 	}
+	
+	public static GridPane createGrid(Node... nodes)
+	{
+		GridPane gp = new GridPane();
+		gp.setVgap(10);
+		gp.setHgap(10);
+		int x = 0;
+		int y = 0;
+		
+		for (Node n : nodes)
+		{
+			gp.add(n, x, y);
+						
+			if (++x == 2)
+			{
+				x = 0;
+				y++;
+			}			
+		}
+		
+		return gp;
+	}
 		
 	class Item {
 		private String itemName = new String("");
@@ -152,15 +174,20 @@ public class PromptDialog extends Application{
 			// Set foucs on the "Name" field after the dialog is created
 			Platform.runLater(() -> name.requestFocus());
 			
-			return grid;
+			return createGrid(new Label("Name"), name, new Label("Number"), number);
 		}
 		
 		public boolean validateAndStore()
 		{
 			if (name.getText().equals("")) {
-				name.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");				
-				
+				name.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");
 				return false;
+			}
+			
+			if (Integer.valueOf(number.getText()) <= 0)
+			{
+				number.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");
+				return false;				
 			}
 			
 			itemName = name.getText();
