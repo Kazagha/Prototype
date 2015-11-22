@@ -2,6 +2,8 @@ package javaFX;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -19,8 +22,9 @@ import javafx.stage.Stage;
 
 public class PromptDialog extends Application{
 	
-	String itemName = new String("Item Name");
-	int itemNum = 0;
+	private String itemName = new String("Item Name");
+	private int itemNum = 0;
+	private VBox contentPane;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception 
@@ -42,14 +46,20 @@ public class PromptDialog extends Application{
 	}
 	
 	public void init(VBox root)
-	{
+	{		
+		EventHandler<MouseEvent> handler = new ContextHandler();
+		
 		Button edit = new Button("Edit");
 		edit.setOnAction(evt -> this.edit());	
 		root.getChildren().addAll(new Label("Edit Item"), edit);
 		
+		contentPane = new VBox();
+		contentPane.setSpacing(10);
+		contentPane.setAlignment(Pos.CENTER);		
 		for (int i = 0; i < 10; i++)
 		{			
 			GridPane grid = new GridPane();
+			grid.addEventHandler(MouseEvent.ANY, handler);
 			grid.setAlignment(Pos.CENTER);
 			grid.add(new Label("Stack " + i + " "), 1, 0, 1, 1);
 			ProgressBar p = new ProgressBar(100);
@@ -62,8 +72,27 @@ public class PromptDialog extends Application{
 			s.getChildren().addAll(p, new StackPane());
 			grid.add(s, 0, 1, 3, 1);
 			
-			root.getChildren().add(grid);
+			contentPane.getChildren().add(grid);
 		}
+		root.getChildren().add(contentPane);
+	}
+	
+	class ContextHandler implements EventHandler<MouseEvent>
+	{
+		@Override
+		public void handle(MouseEvent evt) {
+			Node source = (Node) evt.getSource();
+			Node target = (Node) evt.getTarget();
+			
+			// Release of the right click button
+			if (evt.getEventType() == MouseEvent.MOUSE_RELEASED &&
+					evt.getButton() == MouseButton.SECONDARY)
+			{
+				int index = contentPane.getChildren().indexOf(source);
+				System.out.format("Right Click at %s%n", index);
+			}
+				
+		}		
 	}
 	
 	public void edit()
