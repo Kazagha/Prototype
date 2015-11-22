@@ -1,6 +1,7 @@
 package javaFX;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -90,6 +91,8 @@ public class PromptDialog extends Application{
 			{
 				int index = contentPane.getChildren().indexOf(source);
 				System.out.format("Right Click at %s%n", index);
+				
+				//edit(index);
 			}
 				
 		}		
@@ -109,11 +112,16 @@ public class PromptDialog extends Application{
 		grid.add(new Label("Number"), 0, 1);
 		grid.add(number, 1, 1);
 		
+		// Set foucs on the "Name" field after the dialog is created
+		Platform.runLater(() -> name.requestFocus());
+		
 		Dialog d = new Dialog();
 		d.setTitle("Edit Item");
 		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		d.getDialogPane().setContent(grid);
 		d.showAndWait();
+		
+		
 	}
 
 	public void showDialog() {		
