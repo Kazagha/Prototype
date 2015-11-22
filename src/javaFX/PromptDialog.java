@@ -14,9 +14,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -99,41 +101,75 @@ public class PromptDialog extends Application{
 	}
 	
 	public void edit(int idx)
-	{
-		GridPane grid = new GridPane();
-		grid.setVgap(10);
-		grid.setHgap(10);
-		
-		TextField name  = new TextField(itemName.toString());
-		TextField number = new TextField(String.valueOf(itemNum));
-		
-		grid.add(new Label("Name"), 0, 0);
-		grid.add(name, 1, 0);
-		grid.add(new Label("Number"), 0, 1);
-		grid.add(number, 1, 1);
-		
-		// Set foucs on the "Name" field after the dialog is created
-		Platform.runLater(() -> name.requestFocus());
+	{		
+		Item item = new Item("Name", 145);
 		
 		Dialog d = new Dialog();
 		d.setTitle("Edit Item");
 		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
-		d.getDialogPane().setContent(grid);
+		d.getDialogPane().setContent(item.edit());
 		
 		// Add event filter for valid inputs
 		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
 		ok.addEventFilter(ActionEvent.ACTION, event -> {
-			if (false)	// Check if the input is valid and save it
+			if (! item.validateAndStore())	// Check if the input is valid and save it
 				event.consume();
 			}
 		);
 		
-		d.showAndWait();
-			//.filter(response -> response == ButtonType.OK)
-			//.ifPresent(response -> System.out.format(response.toString()));
-		
-		
+		d.showAndWait()
+			.filter(response -> response == ButtonType.OK)
+			.ifPresent(response -> System.out.format("Item Name: %s%n", item.itemName));		
 	}
+		
+	class Item {
+		private String itemName = new String("");
+		private int itemNumber = 0;
+		
+		private TextField name;
+		private TextField number;
+		
+		public Item(String name, int number)
+		{
+			this.itemName = name;
+			this.itemNumber = number;
+		}
+		
+		public Pane edit()
+		{
+			GridPane grid = new GridPane();
+			grid.setVgap(10);
+			grid.setHgap(10);
+			
+			name  = new TextField(itemName.toString());
+			number = new TextField(String.valueOf(itemNum));
+			
+			grid.add(new Label("Name"), 0, 0);
+			grid.add(name, 1, 0);
+			grid.add(new Label("Number"), 0, 1);
+			grid.add(number, 1, 1);
+			
+			// Set foucs on the "Name" field after the dialog is created
+			Platform.runLater(() -> name.requestFocus());
+			
+			return grid;
+		}
+		
+		public boolean validateAndStore()
+		{
+			if (name.getText().equals("")) {
+				name.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");				
+				
+				return false;
+			}
+			
+			itemName = name.getText();
+			itemNum = Integer.valueOf(number.getText());
+			
+			return true;
+		}
+	}
+	
 
 	public void showDialog() {		
 		Dialog d = new Dialog<String>();
