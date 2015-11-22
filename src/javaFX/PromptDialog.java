@@ -9,8 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -43,6 +46,24 @@ public class PromptDialog extends Application{
 		Button edit = new Button("Edit");
 		edit.setOnAction(evt -> this.edit());	
 		root.getChildren().addAll(new Label("Edit Item"), edit);
+		
+		for (int i = 0; i < 10; i++)
+		{			
+			GridPane grid = new GridPane();
+			grid.setAlignment(Pos.CENTER);
+			grid.add(new Label("Stack " + i + " "), 1, 0, 1, 1);
+			ProgressBar p = new ProgressBar(100);
+			p.setPrefWidth(350);
+			p.setProgress(Math.random());
+			
+			// Progress Bar is not clickable by default
+			// Put the Progress Bar underneath the StackPane to accept clicks 
+			StackPane s = new StackPane();
+			s.getChildren().addAll(p, new StackPane());
+			grid.add(s, 0, 1, 3, 1);
+			
+			root.getChildren().add(grid);
+		}
 	}
 	
 	public void edit()
