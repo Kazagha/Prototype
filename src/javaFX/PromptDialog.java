@@ -51,7 +51,7 @@ public class PromptDialog extends Application{
 		EventHandler<MouseEvent> handler = new ContextHandler();
 		
 		Button edit = new Button("Edit");
-		edit.setOnAction(evt -> this.edit());	
+		//edit.setOnAction(evt -> this.edit());	
 		root.getChildren().addAll(new Label("Edit Item"), edit);
 		
 		contentPane = new VBox();
@@ -92,13 +92,13 @@ public class PromptDialog extends Application{
 				int index = contentPane.getChildren().indexOf(source);
 				System.out.format("Right Click at %s%n", index);
 				
-				//edit(index);
+				edit(index);
 			}
 				
 		}		
 	}
 	
-	public void edit()
+	public void edit(int idx)
 	{
 		GridPane grid = new GridPane();
 		grid.setVgap(10);
@@ -117,9 +117,20 @@ public class PromptDialog extends Application{
 		
 		Dialog d = new Dialog();
 		d.setTitle("Edit Item");
-		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
 		d.getDialogPane().setContent(grid);
+		
+		// Add event filter for valid inputs
+		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
+		ok.addEventFilter(ActionEvent.ACTION, event -> {
+			if (false)	// Check if the input is valid and save it
+				event.consume();
+			}
+		);
+		
 		d.showAndWait();
+			//.filter(response -> response == ButtonType.OK)
+			//.ifPresent(response -> System.out.format(response.toString()));
 		
 		
 	}
