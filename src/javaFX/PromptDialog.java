@@ -122,7 +122,12 @@ public class PromptDialog extends Application{
 			.ifPresent(response -> System.out.format("Item Name: %s%n", item.itemName));		
 	}
 	
-	public static GridPane createGrid(Node... nodes)
+	/**
+	 * Format the specified nodes into two columns and return the GridPane
+	 * @param nodes
+	 * @return
+	 */
+	public static GridPane toDialog(Node... nodes)
 	{
 		GridPane gp = new GridPane();
 		gp.setVgap(10);
@@ -174,7 +179,7 @@ public class PromptDialog extends Application{
 			// Set foucs on the "Name" field after the dialog is created
 			Platform.runLater(() -> name.requestFocus());
 			
-			return createGrid(new Label("Name"), name, new Label("Number"), number);
+			return toDialog(new Label("Name"), name, new Label("Number"), number);
 		}
 		
 		public boolean validateAndStore()
