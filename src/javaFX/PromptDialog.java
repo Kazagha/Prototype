@@ -1,7 +1,15 @@
 package javaFX;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolatable;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -17,11 +25,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class PromptDialog extends Application{
 	
@@ -191,7 +202,9 @@ public class PromptDialog extends Application{
 			
 			if (Integer.valueOf(number.getText()) <= 0)
 			{
-				number.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");
+				ObjectProperty<Color> warningColor = new SimpleObjectProperty<>(Color.GRAY);				
+				number.setStyle("-fx-background-color: " + warningColor + ";");
+				//createTimeline(warningColor).play();
 				return false;				
 			}
 			
@@ -202,6 +215,17 @@ public class PromptDialog extends Application{
 		}
 	}
 	
+	public Timeline createTimeline(ObjectProperty<Color> color)
+	{
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(1);
+		timeline.setAutoReverse(true);
+		final KeyValue kv1 = new KeyValue(color, Color.RED, Interpolator.LINEAR);
+		final KeyFrame kf1 = new KeyFrame(Duration.millis(500), kv1);
+		timeline.getKeyFrames().add(kf1);
+		
+		return timeline;
+	}	
 
 	public void showDialog() {		
 		Dialog d = new Dialog<String>();
