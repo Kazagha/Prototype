@@ -1,6 +1,7 @@
 package javaFX;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
 import javafx.animation.Interpolatable;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -31,6 +32,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -164,8 +166,8 @@ public class PromptDialog extends Application{
 		private String itemName = new String("");
 		private int itemNumber = 0;
 		
-		private TextField name;
-		private TextField number;
+		private TextField nameField;
+		private TextField numberField;
 		
 		public Item(String name, int number)
 		{
@@ -179,37 +181,37 @@ public class PromptDialog extends Application{
 			grid.setVgap(10);
 			grid.setHgap(10);
 			
-			name  = new TextField(itemName.toString());
-			number = new TextField(String.valueOf(itemNum));
+			nameField  = new TextField(itemName.toString());
+			numberField = new TextField(String.valueOf(itemNum));
 			
 			grid.add(new Label("Name"), 0, 0);
-			grid.add(name, 1, 0);
+			grid.add(nameField, 1, 0);
 			grid.add(new Label("Number"), 0, 1);
-			grid.add(number, 1, 1);
+			grid.add(numberField, 1, 1);
 			
 			// Set foucs on the "Name" field after the dialog is created
-			Platform.runLater(() -> name.requestFocus());
+			Platform.runLater(() -> nameField.requestFocus());
 			
-			return toDialog(new Label("Name"), name, new Label("Number"), number);
+			return toDialog(new Label("Name"), nameField, new Label("Number"), numberField);
 		}
 		
 		public boolean validateAndStore()
 		{
-			if (name.getText().equals("")) {
-				name.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");
+			if (nameField.getText().equals("")) {
+				nameField.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");
 				return false;
 			}
 			
-			if (Integer.valueOf(number.getText()) <= 0)
+			if (Integer.valueOf(numberField.getText()) <= 0)
 			{
 				ObjectProperty<Color> warningColor = new SimpleObjectProperty<>(Color.GRAY);				
-				number.setStyle("-fx-background-color: " + warningColor + ";");
+				numberField.setStyle("-fx-background-color: RED");
 				//createTimeline(warningColor).play();
 				return false;				
 			}
 			
-			itemName = name.getText();
-			itemNum = Integer.valueOf(number.getText());
+			itemName = nameField.getText();
+			itemNum = Integer.valueOf(numberField.getText());
 			
 			return true;
 		}
