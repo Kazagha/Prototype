@@ -41,6 +41,8 @@ public class PromptDialog extends Application{
 	private String itemName = new String("Item Name");
 	private int itemNum = 0;
 	private VBox contentPane;
+	private Timeline warningTimeline;
+	private String warningStyle;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception 
@@ -91,6 +93,24 @@ public class PromptDialog extends Application{
 			contentPane.getChildren().add(grid);
 		}
 		root.getChildren().add(contentPane);
+		
+		ObjectProperty<Color> warningColor = new SimpleObjectProperty<>();
+		warningTimeline = new Timeline();
+		warningTimeline.setCycleCount(2);
+		warningTimeline.setAutoReverse(true);
+		KeyValue kv0 = new KeyValue(warningColor, Color.TRANSPARENT);
+		KeyValue kv1 = new KeyValue(warningColor, Color.RED);
+		KeyFrame kf0 = new KeyFrame(Duration.ZERO, kv0);
+		KeyFrame kf1 = new KeyFrame(Duration.millis(500), kv1);
+		warningTimeline.getKeyFrames().addAll(kf0, kf1);
+		
+		warningColor.addListener((obs, oldValue, newValue) -> {
+			warningStyle = String.format("-fx-background-color: rgba(%d, %d, %d, .25);%n",
+				(int)(newValue.getRed()		*255),
+				(int)(newValue.getGreen()	*255),
+				(int)(newValue.getBlue()	*255));
+			System.out.format("Warning: %s%n", warningStyle);
+		});
 	}
 	
 	class ContextHandler implements EventHandler<MouseEvent>
@@ -206,6 +226,7 @@ public class PromptDialog extends Application{
 			{
 				ObjectProperty<Color> warningColor = new SimpleObjectProperty<>(Color.GRAY);				
 				numberField.setStyle("-fx-background-color: RED");
+				warningTimeline.play();
 				//createTimeline(warningColor).play();
 				return false;				
 			}
