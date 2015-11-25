@@ -41,8 +41,7 @@ public class PromptDialog extends Application{
 	private String itemName = new String("Item Name");
 	private int itemNum = 0;
 	private VBox contentPane;
-	private Timeline warningTimeline;
-	private String warningStyle;
+	private WarningAnimation animation;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception 
@@ -66,6 +65,7 @@ public class PromptDialog extends Application{
 	public void init(VBox root)
 	{		
 		EventHandler<MouseEvent> handler = new ContextHandler();
+		animation = new WarningAnimation();
 		
 		Button edit = new Button("Edit");
 		//edit.setOnAction(evt -> this.edit());	
@@ -93,25 +93,42 @@ public class PromptDialog extends Application{
 			contentPane.getChildren().add(grid);
 		}
 		root.getChildren().add(contentPane);
+	}
+	
+	class WarningAnimation 
+	{
+		Timeline timeline;
+		Node node = null;
+		String warningStyle;
 		
-		ObjectProperty<Color> warningColor = new SimpleObjectProperty<>();
-		warningTimeline = new Timeline();
-		warningTimeline.setCycleCount(4);
-		warningTimeline.setAutoReverse(true);
-		KeyValue kv0 = new KeyValue(warningColor, Color.TRANSPARENT);
-		KeyValue kv1 = new KeyValue(warningColor, Color.RED);
-		KeyFrame kf0 = new KeyFrame(Duration.ZERO, kv0);
-		KeyFrame kf1 = new KeyFrame(Duration.millis(500), kv1);
-		warningTimeline.getKeyFrames().addAll(kf0, kf1);
+		public WarningAnimation()
+		{
+			ObjectProperty<Color> warningColor = new SimpleObjectProperty<>();
+			timeline = new Timeline();
+			timeline .setCycleCount(4);
+			timeline .setAutoReverse(true);
+			KeyValue kv0 = new KeyValue(warningColor, Color.WHITE);
+			KeyValue kv1 = new KeyValue(warningColor, Color.GREEN);
+			KeyFrame kf0 = new KeyFrame(Duration.ZERO, kv0);
+			KeyFrame kf1 = new KeyFrame(Duration.millis(500), kv1);
+			timeline.getKeyFrames().addAll(kf0, kf1);
+			
+			warningColor.addListener((obs, oldValue, newValue) -> {
+				warningStyle = String.format("-fx-background-color: rgba(%d, %d, %d, %d);%n",
+					(int)(newValue.getRed()		*255),
+					(int)(newValue.getGreen()	*255),
+					(int)(newValue.getBlue()	*255),
+					(int)(newValue.getOpacity() *255));
+				System.out.format("Warning: %s%n", warningStyle);
+				node.setStyle(warningStyle);
+			});
+		}
 		
-		warningColor.addListener((obs, oldValue, newValue) -> {
-			warningStyle = String.format("-fx-background-color: rgba(%d, %d, %d, %d);%n",
-				(int)(newValue.getRed()		*255),
-				(int)(newValue.getGreen()	*255),
-				(int)(newValue.getBlue()	*255),
-				(int)(newValue.getOpacity() *255));
-			System.out.format("Warning: %s%n", warningStyle);
-		});
+		public void playWarning(Node n)
+		{
+			this.node = n;
+			timeline.play();
+		}
 	}
 	
 	class ContextHandler implements EventHandler<MouseEvent>
@@ -224,10 +241,9 @@ public class PromptDialog extends Application{
 			}
 			
 			if (Integer.valueOf(numberField.getText()) <= 0)
-			{
-				ObjectProperty<Color> warningColor = new SimpleObjectProperty<>(Color.GRAY);				
-				numberField.setStyle("-fx-background-color: RED");
-				warningTimeline.play();
+			{				
+				//numberField.setStyle("-fx-background-color: RED");
+				animation.playWarning(numberField);
 				return false;				
 			}
 			
