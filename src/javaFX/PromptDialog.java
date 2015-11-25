@@ -96,7 +96,7 @@ public class PromptDialog extends Application{
 		
 		ObjectProperty<Color> warningColor = new SimpleObjectProperty<>();
 		warningTimeline = new Timeline();
-		warningTimeline.setCycleCount(2);
+		warningTimeline.setCycleCount(4);
 		warningTimeline.setAutoReverse(true);
 		KeyValue kv0 = new KeyValue(warningColor, Color.TRANSPARENT);
 		KeyValue kv1 = new KeyValue(warningColor, Color.RED);
@@ -105,10 +105,11 @@ public class PromptDialog extends Application{
 		warningTimeline.getKeyFrames().addAll(kf0, kf1);
 		
 		warningColor.addListener((obs, oldValue, newValue) -> {
-			warningStyle = String.format("-fx-background-color: rgba(%d, %d, %d, .25);%n",
+			warningStyle = String.format("-fx-background-color: rgba(%d, %d, %d, %d);%n",
 				(int)(newValue.getRed()		*255),
 				(int)(newValue.getGreen()	*255),
-				(int)(newValue.getBlue()	*255));
+				(int)(newValue.getBlue()	*255),
+				(int)(newValue.getOpacity() *255));
 			System.out.format("Warning: %s%n", warningStyle);
 		});
 	}
@@ -227,7 +228,6 @@ public class PromptDialog extends Application{
 				ObjectProperty<Color> warningColor = new SimpleObjectProperty<>(Color.GRAY);				
 				numberField.setStyle("-fx-background-color: RED");
 				warningTimeline.play();
-				//createTimeline(warningColor).play();
 				return false;				
 			}
 			
