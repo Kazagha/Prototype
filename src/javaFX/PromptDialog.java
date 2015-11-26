@@ -1,5 +1,7 @@
 package javaFX;
 
+import java.util.List;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
 import javafx.animation.Interpolatable;
@@ -14,6 +16,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,8 +30,11 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -98,7 +104,8 @@ public class PromptDialog extends Application{
 	class WarningAnimation 
 	{
 		Timeline timeline;
-		Node node = null;
+		Region node = null;
+		List<BackgroundFill> bgFill;
 		String warningStyle;
 		
 		public WarningAnimation()
@@ -110,7 +117,7 @@ public class PromptDialog extends Application{
 			KeyValue kv0 = new KeyValue(warningColor, Color.WHITE);
 			KeyValue kv1 = new KeyValue(warningColor, Color.GREEN);
 			KeyFrame kf0 = new KeyFrame(Duration.ZERO, kv0);
-			KeyFrame kf1 = new KeyFrame(Duration.millis(500), kv1);
+			KeyFrame kf1 = new KeyFrame(Duration.millis(100), kv1);
 			timeline.getKeyFrames().addAll(kf0, kf1);
 			
 			warningColor.addListener((obs, oldValue, newValue) -> {
@@ -120,13 +127,14 @@ public class PromptDialog extends Application{
 					(int)(newValue.getBlue()	*255),
 					(int)(newValue.getOpacity() *255));
 				System.out.format("Warning: %s%n", warningStyle);
-				node.setStyle(warningStyle);
+				node.setBackground(new Background(new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
 			});
 		}
 		
-		public void playWarning(Node n)
+		public void playWarning(Region n)
 		{
 			this.node = n;
+			bgFill = n.getBackground().getFills();
 			timeline.play();
 		}
 	}
