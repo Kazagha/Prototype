@@ -105,19 +105,28 @@ public class PromptDialog extends Application{
 	{
 		Timeline timeline;
 		Region node = null;
-		List<BackgroundFill> bgFill;
+		Background bgFill;
 		String warningStyle;
 		
 		public WarningAnimation()
 		{
+			EventHandler<ActionEvent> onFinished = new EventHandler<ActionEvent>()
+			{
+				@Override
+				public void handle(ActionEvent event)
+				{
+					node.setBackground(bgFill);
+				}				
+			};
+			
 			ObjectProperty<Color> warningColor = new SimpleObjectProperty<>();
 			timeline = new Timeline();
 			timeline .setCycleCount(4);
 			timeline .setAutoReverse(true);
 			KeyValue kv0 = new KeyValue(warningColor, Color.WHITE);
-			KeyValue kv1 = new KeyValue(warningColor, Color.GREEN);
-			KeyFrame kf0 = new KeyFrame(Duration.ZERO, kv0);
-			KeyFrame kf1 = new KeyFrame(Duration.millis(100), kv1);
+			KeyValue kv1 = new KeyValue(warningColor, Color.RED);
+			KeyFrame kf0 = new KeyFrame(Duration.ZERO, onFinished, kv0);
+			KeyFrame kf1 = new KeyFrame(Duration.millis(50), kv1);
 			timeline.getKeyFrames().addAll(kf0, kf1);
 			
 			warningColor.addListener((obs, oldValue, newValue) -> {
@@ -134,7 +143,7 @@ public class PromptDialog extends Application{
 		public void playWarning(Region n)
 		{
 			this.node = n;
-			bgFill = n.getBackground().getFills();
+			bgFill = n.getBackground();
 			timeline.play();
 		}
 	}
