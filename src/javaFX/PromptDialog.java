@@ -124,19 +124,18 @@ public class PromptDialog extends Application{
 			timeline .setCycleCount(4);
 			timeline .setAutoReverse(true);
 			KeyValue kv0 = new KeyValue(warningColor, Color.WHITE);
-			KeyValue kv1 = new KeyValue(warningColor, Color.RED);
+			KeyValue kv1 = new KeyValue(warningColor, new Color(0.8, 0, 0, .75));
 			KeyFrame kf0 = new KeyFrame(Duration.ZERO, onFinished, kv0);
-			KeyFrame kf1 = new KeyFrame(Duration.millis(50), kv1);
+			KeyFrame kf1 = new KeyFrame(Duration.millis(75), kv1);
 			timeline.getKeyFrames().addAll(kf0, kf1);
 			
 			warningColor.addListener((obs, oldValue, newValue) -> {
-				warningStyle = String.format("-fx-background-color: rgba(%d, %d, %d, %d);%n",
+				warningStyle = String.format("rgba(%d, %d, %d, %d);%n",
 					(int)(newValue.getRed()		*255),
 					(int)(newValue.getGreen()	*255),
 					(int)(newValue.getBlue()	*255),
 					(int)(newValue.getOpacity() *255));
-				System.out.format("Warning: %s%n", warningStyle);
-				node.setBackground(new Background(new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
+				node.setBackground(new Background(new BackgroundFill(newValue, new CornerRadii(3), Insets.EMPTY)));
 			});
 		}
 		
