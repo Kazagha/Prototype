@@ -34,21 +34,25 @@ public class FillEffect extends Application {
 		
 		fill = new BackgroundFill(Color.RED, new CornerRadii(3), Insets.EMPTY);;
 
+		// A: Default Label
 		lA = new TextField("TextField A");
 		root.getChildren().add(lA);
 		
+		// B: Basic block fill background
 		TextField lB = new TextField("TextField B");
 		lB.setBackground(
 				new Background(fill)
 				);
 		root.getChildren().add(lB);
 		
+		// C: Using Border Stroke instead of background 
 		TextField lC = new TextField("TextField C");
 		lC.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT, new Insets(2))));
 		root.getChildren().add(lC);
 		
+		// D: Using Linear Gradient in the background fill 
 		TextField lD = new TextField("TextField D");
-		LinearGradient gradient = new LinearGradient(0.0, 0.0, 0.0, 5.0, false, CycleMethod.NO_CYCLE, new 
+		LinearGradient gradient = new LinearGradient(0.0, 0.0, 0.0, 4.0, false, CycleMethod.NO_CYCLE, new 
 				Stop[] {
 						new Stop(0, Color.RED),
 						new Stop(1, Color.WHITE),
@@ -68,6 +72,7 @@ public class FillEffect extends Application {
 	
 	public void doAfter(VBox root)
 	{
+		// E: Effect I am looking for
 		TextField lE = new TextField("TextField E");
 		BackgroundFill TextFieldFill = lA.getBackground().getFills().get(1);
 		lE.setBackground(
