@@ -15,6 +15,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 
 public class FillEffect extends Application {
@@ -41,8 +44,18 @@ public class FillEffect extends Application {
 		root.getChildren().add(lB);
 		
 		TextField lC = new TextField("TextField C");
-		lC.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT, new Insets(0))));
+		lC.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT, new Insets(2))));
 		root.getChildren().add(lC);
+		
+		TextField lD = new TextField("TextField D");
+		LinearGradient gradient = new LinearGradient(0.0, 0.0, 0.0, 5.0, false, CycleMethod.NO_CYCLE, new 
+				Stop[] {
+						new Stop(0, Color.RED),
+						new Stop(1, Color.WHITE),
+						});
+		BackgroundFill gFill = new BackgroundFill(gradient, new CornerRadii(2), new Insets(1));
+		lD.setBackground(new Background(gFill));
+		root.getChildren().add(lD);
 				
 		Scene scene = new Scene(root);
 		primaryStage.setWidth(400);
@@ -55,12 +68,12 @@ public class FillEffect extends Application {
 	
 	public void doAfter(VBox root)
 	{
-		TextField lD = new TextField("TextField D");
+		TextField lE = new TextField("TextField E");
 		BackgroundFill TextFieldFill = lA.getBackground().getFills().get(1);
-		lD.setBackground(
+		lE.setBackground(
 				new Background(fill, TextFieldFill)
 				);
-		root.getChildren().add(lD);
+		root.getChildren().add(lE);
 	}
 	
 	public static void main(String[] args)
