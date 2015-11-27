@@ -2,6 +2,8 @@ package javaFX;
 
 import java.util.List;
 
+import javax.swing.border.StrokeBorder;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
 import javafx.animation.Interpolatable;
@@ -31,6 +33,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -38,6 +44,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -105,6 +114,7 @@ public class PromptDialog extends Application{
 	{
 		Timeline timeline;
 		Region node = null;
+		Border border;
 		Background bgFill;
 		String warningStyle;
 		
@@ -116,6 +126,7 @@ public class PromptDialog extends Application{
 				public void handle(ActionEvent event)
 				{
 					node.setBackground(bgFill);
+					node.setBorder(border);
 				}				
 			};
 			
@@ -135,14 +146,48 @@ public class PromptDialog extends Application{
 					(int)(newValue.getGreen()	*255),
 					(int)(newValue.getBlue()	*255),
 					(int)(newValue.getOpacity() *255));
-				node.setBackground(new Background(new BackgroundFill(newValue, new CornerRadii(3), Insets.EMPTY)));
+				
+				LinearGradient lg = new LinearGradient(0.0, 0.0, 0.0, 5.0, false, CycleMethod.NO_CYCLE, new 
+						Stop[] {
+								new Stop(0, Color.RED),
+								new Stop(1, Color.WHITE),
+								});
+						
+				// Basic Background
+				//node.setBackground(new Background(new BackgroundFill(newValue, new CornerRadii(3), Insets.EMPTY)));
+			
+				/*
+				node.setBackground(new Background(
+						new BackgroundFill(newValue, new CornerRadii(3), Insets.EMPTY),
+						bgFill.getFills().get(1)
+						));
+				*/
+				
+				// Attempt using BorderStroke
+				//node.setBorder(new Border(new BorderStroke(newValue, BorderStrokeStyle.SOLID, new CornerRadii(0), BorderWidths.DEFAULT, new Insets(0))));
+								
+				// 'Pulse' effect using the Inserts changes the size of the background
+				//new BackgroundFill(Color.FIREBRICK, new CornerRadii(2), new Insets(2))
+				
+				BackgroundFill grad = new BackgroundFill(lg, new CornerRadii(2), new Insets(1));
+				node.setBackground(new Background(grad));
+				
 			});
 		}
 		
 		public void playWarning(Region n)
 		{
 			this.node = n;
-			bgFill = n.getBackground();
+			bgFill = n.getBackground();	
+			border = n.getBorder();
+			
+			System.out.format("BG Fill: %n%s%n%s%n%s%n%s", 
+					bgFill.getFills().get(1).getFill().toString(),
+					bgFill.getFills().get(1).getInsets().toString(),
+					bgFill.getFills().get(1).getRadii().toString(),
+					((LinearGradient)bgFill.getFills().get(1).getFill()).getEndY()
+					);
+			
 			timeline.play();
 		}
 	}
@@ -252,13 +297,12 @@ public class PromptDialog extends Application{
 		public boolean validateAndStore()
 		{
 			if (nameField.getText().equals("")) {
-				nameField.setStyle("-fx-background-color: rgba(100, 0, 0, .25);");
+				animation.playWarning(nameField);
 				return false;
 			}
 			
 			if (Integer.valueOf(numberField.getText()) <= 0)
 			{				
-				//numberField.setStyle("-fx-background-color: RED");
 				animation.playWarning(numberField);
 				return false;				
 			}
